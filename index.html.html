@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ජාතික ඉන්ධන පරීක්ෂාව - National Fuel Check</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans Sinhala"', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#0ea5e9',
+                        secondary: '#1e293b',
+                        dark: '#0f172a',
+                        success: '#10b981',
+                        danger: '#ef4444',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-image: radial-gradient(circle at top right, #1e293b 0%, #0f172a 100%);
+            min-height: 100vh;
+        }
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        .animate-slide-up {
+            animation: slideUp 0.6s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="text-white antialiased flex flex-col justify-center items-center p-4">
+
+    <!-- Main Container -->
+    <div class="w-full max-w-lg glass-panel rounded-3xl overflow-hidden animate-slide-up">
+        
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-primary to-blue-600 p-6 text-center relative overflow-hidden">
+            <div class="absolute -top-10 -right-10 opacity-20">
+                <i data-lucide="fuel" class="w-40 h-40"></i>
+            </div>
+            <div class="relative z-10">
+                <div class="inline-flex items-center justify-center p-3 bg-white/20 rounded-2xl mb-4 backdrop-blur-sm">
+                    <i data-lucide="fuel" class="w-8 h-8 text-white"></i>
+                </div>
+                <h1 class="text-3xl font-bold mb-2 tracking-wide">ඉන්ධන ලබා ගත හැකි දින පරීක්‍ෂා කිරීම</h1>
+                <p class="text-blue-100 text-sm font-medium">අද ඔබට තෙල් ලබා ගත හැකිදැයි පරීක්ෂා කරන්න</p>
+            </div>
+        </div>
+
+        <!-- Body -->
+        <div class="p-8">
+            <!-- Date Info -->
+            <div class="flex items-center justify-between mb-8 pb-6 border-b border-white/10">
+                <div>
+                    <p class="text-gray-400 text-sm mb-1">අද දිනය</p>
+                    <p id="currentDate" class="text-lg font-semibold text-white"></p>
+                </div>
+                <div class="text-right">
+                    <p class="text-gray-400 text-sm mb-1">අද දින වර්ගය</p>
+                    <div id="dayTypeBadge" class="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-gray-700">
+                        <span class="animate-pulse mr-2 w-2 h-2 rounded-full bg-white"></span>
+                        <span id="dayType">ගණනය කරමින්...</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Form -->
+            <div class="mb-6">
+                <label for="vehicleNo" class="block text-sm font-medium text-gray-300 mb-2">
+                    වාහනයේ ලියාපදිංචි අංකය
+                </label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <i data-lucide="car" class="w-5 h-5 text-gray-400"></i>
+                    </div>
+                    <input type="text" id="vehicleNo" 
+                        class="block w-full pl-12 pr-4 py-4 bg-dark/50 border border-gray-600 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 text-lg uppercase"
+                        placeholder="උදා: 1234">
+                </div>
+                <p class="text-xs text-gray-400 mt-2 flex items-center">
+                    <i data-lucide="info" class="w-4 h-4 mr-1"></i>
+                    අවසාන ඉලක්කම් 4 පමණක් සැලකිල්ලට ගනී
+                </p>
+            </div>
+
+            <!-- Check Button -->
+            <button onclick="checkFuelEligibility()" 
+                class="w-full bg-primary hover:bg-blue-500 text-white font-bold py-4 px-6 rounded-xl shadow-lg shadow-primary/30 transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center group">
+                <span>පරීක්ෂා කරන්න</span>
+                <i data-lucide="arrow-right" class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform"></i>
+            </button>
+
+            <!-- Result Section (Hidden by default) -->
+            <div id="resultCard" class="hidden mt-8 rounded-2xl p-6 text-center transform transition-all duration-500 scale-95 opacity-0">
+                <div id="resultIcon" class="mx-auto w-16 h-16 rounded-full flex items-center justify-center mb-4 shadow-lg">
+                    <!-- Icon will be injected by JS -->
+                </div>
+                <h3 id="resultTitle" class="text-2xl font-bold mb-2"></h3>
+                <p id="resultMessage" class="text-gray-300 text-sm leading-relaxed"></p>
+                
+                <div id="digitInfo" class="mt-4 pt-4 border-t border-white/10 text-xs text-gray-400 font-mono">
+                    <!-- Digit explanation -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="mt-8 text-center max-w-sm">
+        <p class="text-gray-500 text-xs mb-2">
+            මෙම පද්ධතිය මගින් රජයේ ඔත්තේ/ඉරට්ටේ තෙල් බෙදා හැරීමේ නීති රීති වලට අනුකූලව දත්ත පෙන්වනු ලබයි.
+        </p>
+        <p class="text-gray-400 text-xs font-medium tracking-wider mt-3">
+            Powered by <span class="text-primary font-bold">Smart Ai Word Lk</span>
+        </p>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Global variables for logic
+        let today = new Date();
+        let currentDate = today.getDate();
+        let isTodayOdd = currentDate % 2 !== 0;
+
+        // Setup page on load
+        window.onload = function() {
+            // Set Date
+            const sinhalaMonths = ["ජනවාරි", "පෙබරවාරි", "මාර්තු", "අප්‍රේල්", "මැයි", "ජූනි", "ජූලි", "අගෝස්තු", "සැප්තැම්බර්", "ඔක්තෝබර්", "නොවැම්බර්", "දෙසැම්බර්"];
+            const formattedDate = `${today.getFullYear()} ${sinhalaMonths[today.getMonth()]} ${today.getDate()}`;
+            document.getElementById('currentDate').innerText = formattedDate;
+
+            // Set Day Type (Odd/Even)
+            const dayTypeElement = document.getElementById('dayType');
+            const dayTypeBadge = document.getElementById('dayTypeBadge');
+            
+            if (isTodayOdd) {
+                dayTypeElement.innerText = "ඔත්තේ දිනයක් (" + currentDate + ")";
+                dayTypeBadge.classList.replace('bg-gray-700', 'bg-purple-500/20');
+                dayTypeBadge.classList.add('text-purple-300', 'border', 'border-purple-500/30');
+            } else {
+                dayTypeElement.innerText = "ඉරට්ටේ දිනයක් (" + currentDate + ")";
+                dayTypeBadge.classList.replace('bg-gray-700', 'bg-blue-500/20');
+                dayTypeBadge.classList.add('text-blue-300', 'border', 'border-blue-500/30');
+            }
+        };
+
+        // Main Logic Function
+        function checkFuelEligibility() {
+            const inputVal = document.getElementById('vehicleNo').value.trim();
+            const resultCard = document.getElementById('resultCard');
+            const resultIcon = document.getElementById('resultIcon');
+            const resultTitle = document.getElementById('resultTitle');
+            const resultMessage = document.getElementById('resultMessage');
+            const digitInfo = document.getElementById('digitInfo');
+
+            // Find the last digit in the input using Regex
+            const lastDigitMatch = inputVal.match(/\d(?=\D*$)/);
+
+            // Show animation
+            resultCard.classList.remove('hidden');
+            
+            // Allow DOM to update before adding animation classes
+            setTimeout(() => {
+                resultCard.classList.remove('scale-95', 'opacity-0');
+                resultCard.classList.add('scale-100', 'opacity-100');
+            }, 10);
+
+            if (!lastDigitMatch) {
+                // Invalid Input
+                setResultUI(
+                    'bg-orange-500/20 text-orange-400 border border-orange-500/30',
+                    'bg-orange-500 text-white',
+                    '<i data-lucide="alert-circle" class="w-8 h-8"></i>',
+                    'වැරදි දත්තයකි!',
+                    'කරුණාකර ඔබගේ වාහනයේ ලියාපදිංචි අංකය නිවැරදිව ඇතුලත් කරන්න. (උදා: 1234)',
+                    ''
+                );
+                lucide.createIcons();
+                return;
+            }
+
+            const lastDigit = parseInt(lastDigitMatch[0], 10);
+            const isDigitOdd = lastDigit % 2 !== 0;
+            
+            const isEligible = (isTodayOdd && isDigitOdd) || (!isTodayOdd && !isDigitOdd);
+            const digitTypeText = isDigitOdd ? "ඔත්තේ" : "ඉරට්ටේ";
+            const dayTypeText = isTodayOdd ? "ඔත්තේ" : "ඉරට්ටේ";
+
+            if (isEligible) {
+                // Success
+                setResultUI(
+                    'bg-success/10 border border-success/30',
+                    'bg-success text-white shadow-lg shadow-success/40',
+                    '<i data-lucide="check-circle-2" class="w-10 h-10"></i>',
+                    'සුභ පැතුම්!',
+                    'ඔබට අද දිනයේදී ෂෙඩ් එකෙන් ඉන්ධන ලබා ගත හැක.',
+                    `අවසාන අංකය: ${lastDigit} (${digitTypeText}) • අද දිනය: ${currentDate} (${dayTypeText})`
+                );
+            } else {
+                // Failed
+                setResultUI(
+                    'bg-danger/10 border border-danger/30',
+                    'bg-danger text-white shadow-lg shadow-danger/40',
+                    '<i data-lucide="x-circle" class="w-10 h-10"></i>',
+                    'කණගාටුයි!',
+                    'ඔබගේ වාහනයට අද දිනයේදී ඉන්ධන නිකුත් කරනු නොලැබේ.',
+                    `අවසාන අංකය: ${lastDigit} (${digitTypeText}) • අද දිනය: ${currentDate} (${dayTypeText})`
+                );
+            }
+            
+            // Re-initialize icons inside the result card
+            lucide.createIcons();
+        }
+
+        function setResultUI(cardClass, iconBgClass, iconHTML, title, message, info) {
+            const resultCard = document.getElementById('resultCard');
+            const resultIcon = document.getElementById('resultIcon');
+            
+            // Reset classes
+            resultCard.className = `mt-8 rounded-2xl p-6 text-center transform transition-all duration-500 scale-100 opacity-100 ${cardClass}`;
+            resultIcon.className = `mx-auto w-16 h-16 rounded-full flex items-center justify-center mb-4 ${iconBgClass}`;
+            
+            resultIcon.innerHTML = iconHTML;
+            document.getElementById('resultTitle').innerText = title;
+            document.getElementById('resultMessage').innerText = message;
+            document.getElementById('digitInfo').innerText = info;
+            
+            if(info === '') {
+                document.getElementById('digitInfo').classList.add('hidden');
+            } else {
+                document.getElementById('digitInfo').classList.remove('hidden');
+            }
+        }
+
+        // Allow pressing Enter key to submit
+        document.getElementById("vehicleNo").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                checkFuelEligibility();
+            }
+        });
+    </script>
+</body>
+</html>
