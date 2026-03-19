@@ -20,6 +20,7 @@
                         dark: '#0f172a',
                         success: '#10b981',
                         danger: '#ef4444',
+                        whatsapp: '#25D366',
                     }
                 }
             }
@@ -50,12 +51,18 @@
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        /* Custom Select Styling */
+        select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
     </style>
 </head>
 <body class="text-white antialiased flex flex-col justify-center items-center p-4 min-h-screen relative">
 
     <!-- Main Container -->
-    <div class="w-full max-w-lg glass-panel rounded-3xl overflow-hidden animate-slide-up z-10">
+    <div class="w-full max-w-lg glass-panel rounded-3xl overflow-hidden animate-slide-up z-10 my-8">
         
         <!-- Header -->
         <div class="bg-gradient-to-r from-primary to-blue-600 p-6 text-center relative overflow-hidden">
@@ -89,22 +96,46 @@
             </div>
 
             <!-- Input Form -->
-            <div class="mb-6">
-                <label for="vehicleNo" class="block text-sm font-medium text-gray-300 mb-2">
-                    වාහනයේ ලියාපදිංචි අංකය
-                </label>
-                <div class="relative">
-                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                        <i data-lucide="car" class="w-5 h-5 text-gray-400"></i>
+            <div class="space-y-5 mb-8">
+                <!-- Vehicle Type Dropdown -->
+                <div>
+                    <label for="vehicleType" class="block text-sm font-medium text-gray-300 mb-2">
+                        වාහන වර්ගය
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <i data-lucide="truck" class="w-5 h-5 text-gray-400"></i>
+                        </div>
+                        <select id="vehicleType" class="block w-full pl-12 pr-10 py-4 bg-dark/50 border border-gray-600 rounded-xl text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 text-base">
+                            <option value="motorcycle">යතුරුපැදි (Motorcycle)</option>
+                            <option value="threewheeler">ත්‍රිරෝද රථ (Three-Wheeler)</option>
+                            <option value="car_van" selected>කාර් / වෑන් (Car / Van)</option>
+                            <option value="bus_lorry">බස් / ලොරි (Bus / Lorry)</option>
+                        </select>
+                        <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
+                            <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400"></i>
+                        </div>
                     </div>
-                    <input type="text" id="vehicleNo" 
-                        class="block w-full pl-12 pr-4 py-4 bg-dark/50 border border-gray-600 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 text-lg uppercase"
-                        placeholder="උදා: 1234">
                 </div>
-                <p class="text-xs text-gray-400 mt-2 flex items-center">
-                    <i data-lucide="info" class="w-4 h-4 mr-1"></i>
-                    අවසාන ඉලක්කම් 4 පමණක් සැලකිල්ලට ගනී
-                </p>
+
+                <!-- Vehicle Number Input -->
+                <div>
+                    <label for="vehicleNo" class="block text-sm font-medium text-gray-300 mb-2">
+                        වාහනයේ ලියාපදිංචි අංකය
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <i data-lucide="car" class="w-5 h-5 text-gray-400"></i>
+                        </div>
+                        <input type="text" id="vehicleNo" 
+                            class="block w-full pl-12 pr-4 py-4 bg-dark/50 border border-gray-600 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 text-lg uppercase font-mono"
+                            placeholder="උදා: 1234">
+                    </div>
+                    <p class="text-xs text-gray-400 mt-2 flex items-center">
+                        <i data-lucide="info" class="w-4 h-4 mr-1"></i>
+                        අවසාන ඉලක්කම් 4 පමණක් සැලකිල්ලට ගනී
+                    </p>
+                </div>
             </div>
 
             <!-- Check Button -->
@@ -118,16 +149,33 @@
             <div id="resultCard" class="hidden mt-8 rounded-2xl p-6 text-center transform transition-all duration-500 scale-95 opacity-0">
                 <div id="resultIcon" class="mx-auto w-16 h-16 rounded-full flex items-center justify-center mb-4 shadow-lg">
                 </div>
+                
                 <h3 id="resultTitle" class="text-2xl font-bold mb-2"></h3>
-                <p id="resultMessage" class="text-gray-300 text-sm leading-relaxed"></p>
-                <div id="digitInfo" class="mt-4 pt-4 border-t border-white/10 text-xs text-gray-400 font-mono">
+                <p id="resultMessage" class="text-gray-300 text-sm leading-relaxed mb-4"></p>
+                
+                <!-- Fuel Quota Badge (Shown only on success) -->
+                <div id="quotaContainer" class="hidden justify-center mb-4">
+                    <div class="inline-flex items-center px-4 py-2 bg-black/30 rounded-xl border border-white/10">
+                        <i data-lucide="droplet" class="w-5 h-5 text-primary mr-2"></i>
+                        <span class="text-sm text-gray-300 mr-2">සතිපතා කෝටාව:</span>
+                        <span id="quotaAmount" class="font-bold text-white text-lg"></span>
+                    </div>
                 </div>
+
+                <div id="digitInfo" class="pt-4 border-t border-white/10 text-xs text-gray-400 font-mono">
+                </div>
+
+                <!-- WhatsApp Share Button -->
+                <a id="waShareBtn" href="#" target="_blank" class="hidden mt-6 w-full bg-whatsapp hover:bg-[#128C7E] text-white font-bold py-3 px-6 rounded-xl shadow-lg transition-all duration-300 flex items-center justify-center group">
+                    <i data-lucide="message-circle" class="w-5 h-5 mr-2 group-hover:scale-110 transition-transform"></i>
+                    WhatsApp හරහා යවන්න
+                </a>
             </div>
         </div>
     </div>
 
     <!-- Footer -->
-    <div class="mt-8 text-center max-w-sm z-10">
+    <div class="mb-8 text-center max-w-sm z-10">
         <p class="text-gray-500 text-xs mb-3">
             මෙම පද්ධතිය මගින් රජයේ ඔත්තේ/ඉරට්ටේ තෙල් බෙදා හැරීමේ නීති රීති වලට අනුකූලව දත්ත පෙන්වනු ලබයි.
         </p>
@@ -135,7 +183,7 @@
         <!-- Privacy Policy Link -->
         <button onclick="openPrivacyModal()" class="text-primary hover:text-blue-400 text-xs font-medium underline transition-colors mb-3 inline-flex items-center">
             <i data-lucide="shield-check" class="w-3 h-3 mr-1"></i>
-            ප්‍රතිපත්ති සහ වගකීම් ප්‍රකාශය (Privacy & Disclaimer)
+            ප්‍රතිපත්ති සහ වගකීම් ප්‍රකාශය
         </button>
 
         <p class="text-gray-400 text-xs font-medium tracking-wider mt-1">
@@ -143,7 +191,7 @@
         </p>
     </div>
 
-    <!-- Privacy Policy Modal (Pop-up) -->
+    <!-- Privacy Policy Modal -->
     <div id="privacyModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300">
         <div class="modal-glass w-full max-w-md rounded-2xl overflow-hidden shadow-2xl transform scale-95 transition-transform duration-300" id="privacyModalContent">
             
@@ -165,12 +213,12 @@
                 
                 <div>
                     <h3 class="font-semibold text-white mb-1 text-base">තොරතුරු මූලාශ්‍රය (Data Source)</h3>
-                    <p class="leading-relaxed">මෙම වෙබ් අඩවියේ පෙන්වන තොරතුරු <a href="https://gic.gov.lk/faq.html" target="_blank" class="text-primary hover:underline">ශ්‍රී ලංකා රජයේ තොරතුරු කේන්ද්‍රය (gic.gov.lk)</a> විසින් මහජනතාව සඳහා නිකුත් කර ඇති නීතිරීති මත පදනම්ව සකසා ඇත.</p>
+                    <p class="leading-relaxed">මෙම වෙබ් අඩවියේ පෙන්වන තොරතුරු <a href="https://gic.gov.lk/faq.html" target="_blank" class="text-primary hover:underline">ශ්‍රී ලංකා රජයේ තොරතුරු කේන්ද්‍රය (gic.gov.lk)</a> සහ ඛනිජ තෙල් නීතිගත සංස්ථාවේ නිල නිවේදන මත පදනම්ව සකසා ඇත.</p>
                 </div>
 
                 <div>
                     <h3 class="font-semibold text-white mb-1 text-base">වගකීමෙන් නිදහස් වීමේ ප්‍රකාශය (Disclaimer)</h3>
-                    <p class="leading-relaxed">මෙය රජයේ නිල වෙබ් අඩවියක් නොවන අතර, මහජනතාවගේ පහසුව උදෙසා Smart Ai Word Lk විසින් ස්වේච්ඡාවෙන් නිර්මාණය කරන ලද මෙවලමකි. රජයේ නීති වෙනස්වීම් මත මෙහි ප්‍රතිඵල වෙනස් විය හැක.</p>
+                    <p class="leading-relaxed">මෙය රජයේ නිල වෙබ් අඩවියක් නොවන අතර, මහජනතාවගේ පහසුව උදෙසා Smart Ai Word Lk විසින් ස්වේච්ඡාවෙන් නිර්මාණය කරන ලද මෙවලමකි. රජයේ නීති වෙනස්වීම් මත මෙහි ප්‍රතිඵල සහ කෝටා ප්‍රමාණයන් වෙනස් විය හැක.</p>
                 </div>
             </div>
             
@@ -186,10 +234,19 @@
         // Initialize Lucide icons
         lucide.createIcons();
 
+        // Fuel Quota Data
+        const fuelQuotas = {
+            'motorcycle': 'ලීටර් 4',
+            'threewheeler': 'ලීටර් 5',
+            'car_van': 'ලීටර් 20',
+            'bus_lorry': 'ලීටර් 50'
+        };
+
         // Global variables for logic
         let today = new Date();
         let currentDate = today.getDate();
         let isTodayOdd = currentDate % 2 !== 0;
+        const siteUrl = "https://fuel-filling-date-checker.github.io/fuel-check-app/";
 
         // Setup page on load
         window.onload = function() {
@@ -211,12 +268,30 @@
                 dayTypeBadge.classList.replace('bg-gray-700', 'bg-blue-500/20');
                 dayTypeBadge.classList.add('text-blue-300', 'border', 'border-blue-500/30');
             }
+
+            // Load saved data from Local Storage (Auto-fill)
+            const savedVehicleNo = localStorage.getItem('national_fuel_vehicle_no');
+            const savedVehicleType = localStorage.getItem('national_fuel_vehicle_type');
+
+            if(savedVehicleNo) document.getElementById('vehicleNo').value = savedVehicleNo;
+            if(savedVehicleType) document.getElementById('vehicleType').value = savedVehicleType;
         };
 
         // Main Logic Function
         function checkFuelEligibility() {
-            const inputVal = document.getElementById('vehicleNo').value.trim();
+            const vehicleInput = document.getElementById('vehicleNo');
+            const typeInput = document.getElementById('vehicleType');
+            const inputVal = vehicleInput.value.trim().toUpperCase();
+            const typeVal = typeInput.value;
+            
             const resultCard = document.getElementById('resultCard');
+            const quotaContainer = document.getElementById('quotaContainer');
+            const waShareBtn = document.getElementById('waShareBtn');
+            
+            // Save to Local Storage for next time
+            localStorage.setItem('national_fuel_vehicle_no', inputVal);
+            localStorage.setItem('national_fuel_vehicle_type', typeVal);
+
             const lastDigitMatch = inputVal.match(/\d(?=\D*$)/);
 
             resultCard.classList.remove('hidden');
@@ -226,6 +301,8 @@
             }, 10);
 
             if (!lastDigitMatch) {
+                quotaContainer.classList.replace('flex', 'hidden');
+                waShareBtn.classList.replace('flex', 'hidden');
                 setResultUI(
                     'bg-orange-500/20 text-orange-400 border border-orange-500/30',
                     'bg-orange-500 text-white',
@@ -243,8 +320,15 @@
             const isEligible = (isTodayOdd && isDigitOdd) || (!isTodayOdd && !isDigitOdd);
             const digitTypeText = isDigitOdd ? "ඔත්තේ" : "ඉරට්ටේ";
             const dayTypeText = isTodayOdd ? "ඔත්තේ" : "ඉරට්ටේ";
+            const quota = fuelQuotas[typeVal];
+
+            let shareText = "";
 
             if (isEligible) {
+                // Eligible
+                quotaContainer.classList.replace('hidden', 'flex');
+                document.getElementById('quotaAmount').innerText = quota;
+                
                 setResultUI(
                     'bg-success/10 border border-success/30',
                     'bg-success text-white shadow-lg shadow-success/40',
@@ -253,7 +337,13 @@
                     'ඔබට අද දිනයේදී ෂෙඩ් එකෙන් ඉන්ධන ලබා ගත හැක.',
                     `අවසාන අංකය: ${lastDigit} (${digitTypeText}) • අද දිනය: ${currentDate} (${dayTypeText})`
                 );
+
+                shareText = `✅ මගේ වාහනයට (${inputVal}) අද තෙල් ගහන්න පුළුවන්!\n⛽ සතිපතා කෝටාව: ${quota}\n\nඔයාලගෙ වාහනෙත් චෙක් කරගන්න:\n${siteUrl}`;
+
             } else {
+                // Not Eligible
+                quotaContainer.classList.replace('flex', 'hidden');
+                
                 setResultUI(
                     'bg-danger/10 border border-danger/30',
                     'bg-danger text-white shadow-lg shadow-danger/40',
@@ -262,7 +352,14 @@
                     'ඔබගේ වාහනයට අද දිනයේදී ඉන්ධන නිකුත් කරනු නොලැබේ.',
                     `අවසාන අංකය: ${lastDigit} (${digitTypeText}) • අද දිනය: ${currentDate} (${dayTypeText})`
                 );
+
+                shareText = `❌ මගේ වාහනයට (${inputVal}) අද තෙල් ගහන්න බෑ.\n\nඔයාලගෙ වාහනෙත් චෙක් කරගන්න:\n${siteUrl}`;
             }
+
+            // Setup WhatsApp Button
+            waShareBtn.classList.replace('hidden', 'flex');
+            waShareBtn.href = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+
             lucide.createIcons();
         }
 
@@ -298,8 +395,6 @@
             const modal = document.getElementById('privacyModal');
             const modalContent = document.getElementById('privacyModalContent');
             modal.classList.remove('hidden');
-            
-            // Small delay to allow display:block to apply before animating opacity
             setTimeout(() => {
                 modal.classList.remove('opacity-0');
                 modalContent.classList.remove('scale-95');
@@ -310,22 +405,16 @@
         function closePrivacyModal() {
             const modal = document.getElementById('privacyModal');
             const modalContent = document.getElementById('privacyModalContent');
-            
             modal.classList.add('opacity-0');
             modalContent.classList.remove('scale-100');
             modalContent.classList.add('scale-95');
-            
-            // Wait for animation to finish before hiding
             setTimeout(() => {
                 modal.classList.add('hidden');
             }, 300);
         }
         
-        // Close modal when clicking outside of it
         document.getElementById('privacyModal').addEventListener('click', function(event) {
-            if (event.target === this) {
-                closePrivacyModal();
-            }
+            if (event.target === this) closePrivacyModal();
         });
     </script>
 </body>
