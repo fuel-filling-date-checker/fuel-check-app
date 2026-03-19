@@ -20,13 +20,11 @@
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     
-    <!-- OneSignal Push Notifications (Added) -->
+    <!-- OneSignal Push Notifications -->
     <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
     <script>
       window.OneSignalDeferred = window.OneSignalDeferred || [];
       OneSignalDeferred.push(async function(OneSignal) {
-        // Only initialize OneSignal if running on the actual GitHub Pages domain
-        // This prevents the "Can only be used on..." error in local or preview environments
         if (window.location.hostname === "fuel-filling-date-checker.github.io") {
             try {
                 await OneSignal.init({
@@ -228,7 +226,14 @@
     </div>
 
     <!-- Footer -->
-    <div class="mb-8 text-center max-w-sm z-10">
+    <div class="mb-8 text-center max-w-sm z-10 flex flex-col items-center">
+        
+        <!-- How to Use Button -->
+        <button onclick="openHelpModal()" class="mb-4 text-white hover:text-primary text-sm font-medium transition-colors inline-flex items-center bg-white/10 hover:bg-white/20 px-5 py-2.5 rounded-full backdrop-blur-sm border border-white/10 shadow-lg hover:shadow-primary/20">
+            <i data-lucide="help-circle" class="w-4 h-4 mr-2"></i>
+            <span data-i18n="howToUseBtn">ක්‍රියාකරන ආකාරය (How to Use)</span>
+        </button>
+
         <p class="text-gray-500 text-xs mb-3" data-i18n="footerText">
             මෙම පද්ධතිය මගින් රජයේ ඔත්තේ/ඉරට්ටේ තෙල් බෙදා හැරීමේ නීති රීති වලට අනුකූලව දත්ත පෙන්වනු ලබයි.
         </p>
@@ -282,6 +287,51 @@
         </div>
     </div>
 
+    <!-- Help (How to Use) Modal -->
+    <div id="helpModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300">
+        <div class="modal-glass w-full max-w-md rounded-2xl overflow-hidden shadow-2xl transform scale-95 transition-transform duration-300" id="helpModalContent">
+            
+            <div class="flex justify-between items-center p-5 border-b border-white/10">
+                <h2 class="text-lg font-bold text-white flex items-center">
+                    <i data-lucide="help-circle" class="w-5 h-5 mr-2 text-primary"></i>
+                    <span data-i18n="helpModalTitle">භාවිතා කරන ආකාරය</span>
+                </h2>
+                <button onclick="closeHelpModal()" class="text-gray-400 hover:text-white transition-colors bg-white/5 rounded-full p-1">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            
+            <div class="p-6 text-sm text-gray-300 space-y-4 max-h-[60vh] overflow-y-auto">
+                <div class="flex items-start">
+                    <div class="bg-primary/20 text-primary w-6 h-6 rounded-full flex items-center justify-center font-bold mr-3 shrink-0">1</div>
+                    <p class="leading-relaxed pt-0.5" data-i18n="helpStep1">ඉහළින් ඔබගේ භාෂාව තෝරන්න.</p>
+                </div>
+                <div class="flex items-start">
+                    <div class="bg-primary/20 text-primary w-6 h-6 rounded-full flex items-center justify-center font-bold mr-3 shrink-0">2</div>
+                    <p class="leading-relaxed pt-0.5" data-i18n="helpStep2">ඔබගේ වාහන වර්ගය තෝරන්න.</p>
+                </div>
+                <div class="flex items-start">
+                    <div class="bg-primary/20 text-primary w-6 h-6 rounded-full flex items-center justify-center font-bold mr-3 shrink-0">3</div>
+                    <p class="leading-relaxed pt-0.5" data-i18n="helpStep3">වාහනයේ ලියාපදිංචි අංකය ඇතුළත් කරන්න (උදා: 1234).</p>
+                </div>
+                <div class="flex items-start">
+                    <div class="bg-primary/20 text-primary w-6 h-6 rounded-full flex items-center justify-center font-bold mr-3 shrink-0">4</div>
+                    <p class="leading-relaxed pt-0.5" data-i18n="helpStep4">'පරීක්ෂා කරන්න' බොත්තම ඔබන්න.</p>
+                </div>
+                <div class="flex items-start">
+                    <div class="bg-primary/20 text-primary w-6 h-6 rounded-full flex items-center justify-center font-bold mr-3 shrink-0">5</div>
+                    <p class="leading-relaxed pt-0.5" data-i18n="helpStep5">ඔබට අද ඉන්ධන ලබාගත හැකිද යන්න සහ සතිපතා කෝටාව තිරයේ දිස්වනු ඇත.</p>
+                </div>
+            </div>
+            
+            <div class="p-5 border-t border-white/10 text-center bg-black/20">
+                <button onclick="closeHelpModal()" class="bg-primary hover:bg-blue-500 text-white font-medium py-2 px-6 rounded-lg transition-colors w-full" data-i18n="understandBtn">
+                    තේරුම් ගත්තා (I Understand)
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
         lucide.createIcons();
 
@@ -316,6 +366,13 @@
                 privacy3Title: "වගකීමෙන් නිදහස් වීමේ ප්‍රකාශය (Disclaimer)",
                 privacy3Desc: "මෙය රජයේ නිල වෙබ් අඩවියක් නොවන අතර, මහජනතාවගේ පහසුව උදෙසා Smart Ai Word Lk විසින් ස්වේච්ඡාවෙන් නිර්මාණය කරන ලද මෙවලමකි.",
                 understandBtn: "තේරුම් ගත්තා (I Understand)",
+                howToUseBtn: "ක්‍රියාකරන ආකාරය (How to Use)",
+                helpModalTitle: "භාවිතා කරන ආකාරය",
+                helpStep1: "ඉහළින් ඔබගේ භාෂාව තෝරන්න.",
+                helpStep2: "ඔබගේ වාහන වර්ගය තෝරන්න.",
+                helpStep3: "වාහනයේ ලියාපදිංචි අංකය ඇතුළත් කරන්න (උදා: 1234).",
+                helpStep4: "'පරීක්ෂා කරන්න' බොත්තම ඔබන්න.",
+                helpStep5: "ඔබට අද ඉන්ධන ලබාගත හැකිද යන්න සහ සතිපතා කෝටාව තිරයේ දිස්වනු ඇත.",
                 odd: "ඔත්තේ", even: "ඉරට්ටේ",
                 oddDayStr: "ඔත්තේ දිනයක්", evenDayStr: "ඉරට්ටේ දිනයක්",
                 invalidTitle: "වැරදි දත්තයකි!",
@@ -359,6 +416,13 @@
                 privacy3Title: "Disclaimer",
                 privacy3Desc: "This is not an official government website, but a tool voluntarily created by Smart Ai Word Lk for public convenience.",
                 understandBtn: "I Understand",
+                howToUseBtn: "How to Use App",
+                helpModalTitle: "How to Use",
+                helpStep1: "Select your preferred language at the top.",
+                helpStep2: "Select your vehicle type.",
+                helpStep3: "Enter your vehicle registration number (e.g., 1234).",
+                helpStep4: "Click on the 'Check Eligibility' button.",
+                helpStep5: "View your daily eligibility and weekly fuel quota.",
                 odd: "Odd", even: "Even",
                 oddDayStr: "An Odd Day", evenDayStr: "An Even Day",
                 invalidTitle: "Invalid Data!",
@@ -402,6 +466,13 @@
                 privacy3Title: "பொறுப்புத் துறப்பு (Disclaimer)",
                 privacy3Desc: "இது ஒரு அதிகாரப்பூர்வ அரசாங்க இணையதளம் அல்ல, ஆனால் பொது வசதிக்காக Smart Ai Word Lk ஆல் முன்வந்து உருவாக்கப்பட்டது.",
                 understandBtn: "நான் புரிந்துகொண்டேன்",
+                howToUseBtn: "எப்படி பயன்படுத்துவது",
+                helpModalTitle: "பயன்படுத்தும் முறை",
+                helpStep1: "மேலே உங்கள் மொழியைத் தேர்ந்தெடுக்கவும்.",
+                helpStep2: "உங்கள் வாகன வகையைத் தேர்ந்தெடுக்கவும்.",
+                helpStep3: "உங்கள் வாகன பதிவு எண்ணை உள்ளிடவும் (உதா: 1234).",
+                helpStep4: "'சரிபார்க்கவும்' பொத்தானை அழுத்தவும்.",
+                helpStep5: "இன்றைய எரிபொருள் தகுதி மற்றும் வாராந்திர ஒதுக்கீட்டைப் பார்க்கவும்.",
                 odd: "ஒற்றை", even: "இரட்டை",
                 oddDayStr: "ஒரு ஒற்றை நாள்", evenDayStr: "ஒரு இரட்டை நாள்",
                 invalidTitle: "தவறான தரவு!",
@@ -553,6 +624,7 @@
             }
         });
 
+        // ---------------- PRIVACY MODAL SYSTEM ----------------
         function openPrivacyModal() {
             const modal = document.getElementById('privacyModal');
             const modalContent = document.getElementById('privacyModalContent');
@@ -575,6 +647,31 @@
         
         document.getElementById('privacyModal').addEventListener('click', function(event) {
             if (event.target === this) closePrivacyModal();
+        });
+
+        // ---------------- HELP MODAL SYSTEM (New) ----------------
+        function openHelpModal() {
+            const modal = document.getElementById('helpModal');
+            const modalContent = document.getElementById('helpModalContent');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+                modalContent.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeHelpModal() {
+            const modal = document.getElementById('helpModal');
+            const modalContent = document.getElementById('helpModalContent');
+            modal.classList.add('opacity-0');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            setTimeout(() => { modal.classList.add('hidden'); }, 300);
+        }
+        
+        document.getElementById('helpModal').addEventListener('click', function(event) {
+            if (event.target === this) closeHelpModal();
         });
 
         // ---------------- PWA INSTALLATION SYSTEM ----------------
