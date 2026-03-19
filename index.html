@@ -10,9 +10,37 @@
     <link rel="apple-touch-icon" href="icon.svg">
     
     <title>National Fuel Check</title>
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@300;400;500;600;700&family=Noto+Sans+Tamil:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- OneSignal Push Notifications (Added) -->
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+    <script>
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      OneSignalDeferred.push(async function(OneSignal) {
+        // Only initialize OneSignal if running on the actual GitHub Pages domain
+        // This prevents the "Can only be used on..." error in local or preview environments
+        if (window.location.hostname === "fuel-filling-date-checker.github.io") {
+            try {
+                await OneSignal.init({
+                  appId: "67a723ef-06ab-468d-92c9-a03495507c9a",
+                });
+            } catch (error) {
+                console.error("OneSignal Initialization Error:", error);
+            }
+        } else {
+            console.log("OneSignal push notifications are disabled in this preview environment to prevent domain errors.");
+        }
+      });
+    </script>
+
     <script>
         tailwind.config = {
             theme: {
