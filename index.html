@@ -3,6 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f172a">
+    <link rel="apple-touch-icon" href="icon.svg">
+    
     <title>National Fuel Check</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@300;400;500;600;700&family=Noto+Sans+Tamil:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -60,7 +66,7 @@
 </head>
 <body class="text-white antialiased flex flex-col justify-center items-center p-4 min-h-screen relative">
 
-    <!-- Language Switcher (Top Right) -->
+    <!-- Language Switcher -->
     <div class="absolute top-4 right-4 z-50">
         <div class="relative">
             <select id="langSwitcher" onchange="changeLanguage(this.value)" class="bg-black/40 backdrop-blur-md text-white text-sm font-medium rounded-full pl-4 pr-10 py-2 border border-white/20 focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 cursor-pointer outline-none">
@@ -185,6 +191,14 @@
         </div>
     </div>
 
+    <!-- PWA Install Button -->
+    <div class="w-full max-w-lg z-10 px-4 mb-4">
+        <button id="installAppBtn" class="hidden w-full bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-white font-bold py-3 px-6 rounded-xl shadow-lg transition-all duration-300 flex items-center justify-center group animate-slide-up">
+            <i data-lucide="download" class="w-5 h-5 mr-2 group-hover:-translate-y-1 transition-transform"></i>
+            <span data-i18n="installBtnText">App එක ෆෝන් එකට Install කරන්න</span>
+        </button>
+    </div>
+
     <!-- Footer -->
     <div class="mb-8 text-center max-w-sm z-10">
         <p class="text-gray-500 text-xs mb-3" data-i18n="footerText">
@@ -262,6 +276,7 @@
                 checkBtn: "පරීක්ෂා කරන්න",
                 quotaLabel: "සතිපතා කෝටාව:",
                 waShareBtnText: "WhatsApp හරහා යවන්න",
+                installBtnText: "App එක ෆෝන් එකට Install කරන්න",
                 footerText: "මෙම පද්ධතිය මගින් රජයේ ඔත්තේ/ඉරට්ටේ තෙල් බෙදා හැරීමේ නීති රීති වලට අනුකූලව දත්ත පෙන්වනු ලබයි.",
                 privacyBtn: "ප්‍රතිපත්ති සහ වගකීම් ප්‍රකාශය",
                 privacyModalTitle: "පෞද්ගලිකත්ව ප්‍රතිපත්තිය",
@@ -273,7 +288,6 @@
                 privacy3Title: "වගකීමෙන් නිදහස් වීමේ ප්‍රකාශය (Disclaimer)",
                 privacy3Desc: "මෙය රජයේ නිල වෙබ් අඩවියක් නොවන අතර, මහජනතාවගේ පහසුව උදෙසා Smart Ai Word Lk විසින් ස්වේච්ඡාවෙන් නිර්මාණය කරන ලද මෙවලමකි.",
                 understandBtn: "තේරුම් ගත්තා (I Understand)",
-                // Dynamic Texts
                 odd: "ඔත්තේ", even: "ඉරට්ටේ",
                 oddDayStr: "ඔත්තේ දිනයක්", evenDayStr: "ඉරට්ටේ දිනයක්",
                 invalidTitle: "වැරදි දත්තයකි!",
@@ -305,6 +319,7 @@
                 checkBtn: "Check Eligibility",
                 quotaLabel: "Weekly Quota:",
                 waShareBtnText: "Share via WhatsApp",
+                installBtnText: "Install App to Phone",
                 footerText: "This system displays data in accordance with the government's Odd/Even fuel distribution rules.",
                 privacyBtn: "Privacy Policy & Disclaimer",
                 privacyModalTitle: "Privacy Policy",
@@ -316,7 +331,6 @@
                 privacy3Title: "Disclaimer",
                 privacy3Desc: "This is not an official government website, but a tool voluntarily created by Smart Ai Word Lk for public convenience.",
                 understandBtn: "I Understand",
-                // Dynamic Texts
                 odd: "Odd", even: "Even",
                 oddDayStr: "An Odd Day", evenDayStr: "An Even Day",
                 invalidTitle: "Invalid Data!",
@@ -348,6 +362,7 @@
                 checkBtn: "சரிபார்க்கவும்",
                 quotaLabel: "வாராந்திர ஒதுக்கீடு:",
                 waShareBtnText: "WhatsApp மூலம் பகிரவும்",
+                installBtnText: "செயலியை தொலைபேசியில் நிறுவவும்",
                 footerText: "அரசாங்கத்தின் ஒற்றை/இரட்டை எரிபொருள் விநியோக விதிகளுக்கு ஏற்ப தரவு காண்பிக்கப்படுகிறது.",
                 privacyBtn: "தனியுரிமை மற்றும் பொறுப்புத் துறப்பு",
                 privacyModalTitle: "தனியுரிமைக் கொள்கை",
@@ -359,7 +374,6 @@
                 privacy3Title: "பொறுப்புத் துறப்பு (Disclaimer)",
                 privacy3Desc: "இது ஒரு அதிகாரப்பூர்வ அரசாங்க இணையதளம் அல்ல, ஆனால் பொது வசதிக்காக Smart Ai Word Lk ஆல் முன்வந்து உருவாக்கப்பட்டது.",
                 understandBtn: "நான் புரிந்துகொண்டேன்",
-                // Dynamic Texts
                 odd: "ஒற்றை", even: "இரட்டை",
                 oddDayStr: "ஒரு ஒற்றை நாள்", evenDayStr: "ஒரு இரட்டை நாள்",
                 invalidTitle: "தவறான தரவு!",
@@ -376,19 +390,15 @@
             }
         };
 
-        let currentLang = 'si'; // Default language
+        let currentLang = 'si';
 
-        // Helper function to get translation
-        function t(key) {
-            return translations[currentLang][key];
-        }
+        function t(key) { return translations[currentLang][key]; }
 
         function changeLanguage(lang) {
             currentLang = lang;
             localStorage.setItem('national_fuel_lang', lang);
             document.getElementById('langSwitcher').value = lang;
 
-            // Update all elements with data-i18n attribute
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (el.tagName === 'INPUT' && el.hasAttribute('placeholder')) {
@@ -398,27 +408,21 @@
                 }
             });
 
-            // Update dynamic UI (Date and Badge)
             updateDynamicUI();
-
-            // If a result is currently shown, re-check to translate the result card
             if (!document.getElementById('resultCard').classList.contains('hidden')) {
                 checkFuelEligibility();
             }
         }
 
-        // Global variables for logic
         let today = new Date();
         let currentDate = today.getDate();
         let isTodayOdd = currentDate % 2 !== 0;
         const siteUrl = "https://fuel-filling-date-checker.github.io/fuel-check-app/";
 
         function updateDynamicUI() {
-            // Set translated Date
             const formattedDate = `${today.getFullYear()} ${t('months')[today.getMonth()]} ${today.getDate()}`;
             document.getElementById('currentDate').innerText = formattedDate;
 
-            // Set translated Day Type (Odd/Even)
             const dayTypeElement = document.getElementById('dayType');
             const dayTypeBadge = document.getElementById('dayTypeBadge');
             
@@ -431,17 +435,14 @@
             }
         }
 
-        // Setup page on load
         window.onload = function() {
-            // Load saved language
             const savedLang = localStorage.getItem('national_fuel_lang');
             if (savedLang && translations[savedLang]) {
                 changeLanguage(savedLang);
             } else {
-                updateDynamicUI(); // Initialize default (Sinhala)
+                updateDynamicUI();
             }
 
-            // Load saved input data
             const savedVehicleNo = localStorage.getItem('national_fuel_vehicle_no');
             const savedVehicleType = localStorage.getItem('national_fuel_vehicle_type');
 
@@ -449,7 +450,6 @@
             if(savedVehicleType) document.getElementById('vehicleType').value = savedVehicleType;
         };
 
-        // Main Logic Function
         function checkFuelEligibility() {
             const vehicleInput = document.getElementById('vehicleNo');
             const typeInput = document.getElementById('vehicleType');
@@ -460,7 +460,6 @@
             const quotaContainer = document.getElementById('quotaContainer');
             const waShareBtn = document.getElementById('waShareBtn');
             
-            // Save to Local Storage for next time
             localStorage.setItem('national_fuel_vehicle_no', inputVal);
             localStorage.setItem('national_fuel_vehicle_type', typeVal);
 
@@ -475,14 +474,7 @@
             if (!lastDigitMatch) {
                 quotaContainer.classList.replace('flex', 'hidden');
                 waShareBtn.classList.replace('flex', 'hidden');
-                setResultUI(
-                    'bg-orange-500/20 text-orange-400 border border-orange-500/30',
-                    'bg-orange-500 text-white',
-                    '<i data-lucide="alert-circle" class="w-8 h-8"></i>',
-                    t('invalidTitle'),
-                    t('invalidMsg'),
-                    ''
-                );
+                setResultUI('bg-orange-500/20 text-orange-400 border border-orange-500/30', 'bg-orange-500 text-white', '<i data-lucide="alert-circle" class="w-8 h-8"></i>', t('invalidTitle'), t('invalidMsg'), '');
                 lucide.createIcons();
                 return;
             }
@@ -499,64 +491,33 @@
             let shareText = "";
 
             if (isEligible) {
-                // Eligible
                 quotaContainer.classList.replace('hidden', 'flex');
                 document.getElementById('quotaAmount').innerText = quota;
-                
-                setResultUI(
-                    'bg-success/10 border border-success/30',
-                    'bg-success text-white shadow-lg shadow-success/40',
-                    '<i data-lucide="check-circle-2" class="w-10 h-10"></i>',
-                    t('successTitle'),
-                    t('successMsg'),
-                    infoString
-                );
-
+                setResultUI('bg-success/10 border border-success/30', 'bg-success text-white shadow-lg shadow-success/40', '<i data-lucide="check-circle-2" class="w-10 h-10"></i>', t('successTitle'), t('successMsg'), infoString);
                 shareText = t('waSuccess').replace('{num}', inputVal).replace('{quota}', quota).replace('{url}', siteUrl);
-
             } else {
-                // Not Eligible
                 quotaContainer.classList.replace('flex', 'hidden');
-                
-                setResultUI(
-                    'bg-danger/10 border border-danger/30',
-                    'bg-danger text-white shadow-lg shadow-danger/40',
-                    '<i data-lucide="x-circle" class="w-10 h-10"></i>',
-                    t('failTitle'),
-                    t('failMsg'),
-                    infoString
-                );
-
+                setResultUI('bg-danger/10 border border-danger/30', 'bg-danger text-white shadow-lg shadow-danger/40', '<i data-lucide="x-circle" class="w-10 h-10"></i>', t('failTitle'), t('failMsg'), infoString);
                 shareText = t('waFail').replace('{num}', inputVal).replace('{url}', siteUrl);
             }
 
-            // Setup WhatsApp Button
             waShareBtn.classList.replace('hidden', 'flex');
             waShareBtn.href = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
-
             lucide.createIcons();
         }
 
         function setResultUI(cardClass, iconBgClass, iconHTML, title, message, info) {
             const resultCard = document.getElementById('resultCard');
             const resultIcon = document.getElementById('resultIcon');
-            
             resultCard.className = `mt-8 rounded-2xl p-6 text-center transform transition-all duration-500 scale-100 opacity-100 ${cardClass}`;
             resultIcon.className = `mx-auto w-16 h-16 rounded-full flex items-center justify-center mb-4 ${iconBgClass}`;
-            
             resultIcon.innerHTML = iconHTML;
             document.getElementById('resultTitle').innerText = title;
             document.getElementById('resultMessage').innerText = message;
             document.getElementById('digitInfo').innerText = info;
-            
-            if(info === '') {
-                document.getElementById('digitInfo').classList.add('hidden');
-            } else {
-                document.getElementById('digitInfo').classList.remove('hidden');
-            }
+            document.getElementById('digitInfo').classList.toggle('hidden', info === '');
         }
 
-        // Enter key support
         document.getElementById("vehicleNo").addEventListener("keypress", function(event) {
             if (event.key === "Enter") {
                 event.preventDefault();
@@ -564,7 +525,6 @@
             }
         });
 
-        // Modal Functions
         function openPrivacyModal() {
             const modal = document.getElementById('privacyModal');
             const modalContent = document.getElementById('privacyModalContent');
@@ -582,13 +542,46 @@
             modal.classList.add('opacity-0');
             modalContent.classList.remove('scale-100');
             modalContent.classList.add('scale-95');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-            }, 300);
+            setTimeout(() => { modal.classList.add('hidden'); }, 300);
         }
         
         document.getElementById('privacyModal').addEventListener('click', function(event) {
             if (event.target === this) closePrivacyModal();
+        });
+
+        // ---------------- PWA INSTALLATION SYSTEM ----------------
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                .then(() => console.log('PWA Service Worker Registered'))
+                .catch((err) => console.log('PWA Service Worker Failed', err));
+            });
+        }
+
+        let deferredPrompt;
+        const installBtn = document.getElementById('installAppBtn');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installBtn.classList.remove('hidden');
+        });
+
+        installBtn.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    console.log('User accepted the install prompt');
+                    installBtn.classList.add('hidden');
+                }
+                deferredPrompt = null;
+            }
+        });
+
+        window.addEventListener('appinstalled', () => {
+            installBtn.classList.add('hidden');
+            console.log('PWA was installed');
         });
     </script>
 </body>
