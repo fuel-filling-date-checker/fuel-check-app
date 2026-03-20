@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Fuel Mileage Calculator</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@300;400;500;600;700&family=Noto+Sans+Tamil:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans Sinhala"', '"Noto Sans Tamil"', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#10b981', /* Emerald color for this tool */
+                        secondary: '#1e293b',
+                        dark: '#0f172a',
+                        success: '#10b981',
+                        danger: '#ef4444',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-image: radial-gradient(circle at top left, #1e293b 0%, #0f172a 100%);
+            min-height: 100vh;
+        }
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+        .animate-slide-up {
+            animation: slideUp 0.6s ease-out forwards;
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="text-white antialiased flex flex-col justify-center items-center p-4 min-h-screen relative overflow-x-hidden">
+
+    <!-- Top Navigation -->
+    <div class="absolute top-4 left-4 z-40">
+        <button onclick="openSidebar()" class="p-2.5 bg-black/40 backdrop-blur-md text-white rounded-xl border border-white/20 hover:bg-white/20 transition-all duration-300 shadow-lg">
+            <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+    </div>
+
+    <div class="absolute top-4 right-4 z-40">
+        <div class="relative">
+            <select id="langSwitcher" onchange="changeLanguage(this.value)" class="bg-black/40 backdrop-blur-md text-white text-sm font-medium rounded-full pl-4 pr-10 py-2 border border-white/20 focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 cursor-pointer outline-none shadow-lg">
+                <option value="si">සිංහල</option>
+                <option value="en">English</option>
+                <option value="ta">தமிழ்</option>
+            </select>
+            <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                <i data-lucide="globe" class="w-4 h-4 text-gray-300"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar Overlay -->
+    <div id="sidebarOverlay" onclick="closeSidebar()" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300"></div>
+
+    <!-- Sidebar Menu -->
+    <div id="sidebar" class="fixed inset-y-0 left-0 w-72 bg-dark/95 backdrop-blur-xl border-r border-white/10 z-50 transform -translate-x-full transition-transform duration-300 flex flex-col shadow-2xl">
+        <div class="p-5 border-b border-white/10 flex justify-between items-center bg-secondary/50">
+            <h2 class="text-lg font-bold text-white flex items-center">
+                <i data-lucide="grid" class="w-5 h-5 mr-2 text-primary"></i>
+                <span data-i18n="menuTitle">මෙනුව (Menu)</span>
+            </h2>
+            <button onclick="closeSidebar()" class="text-gray-400 hover:text-white bg-white/5 rounded-full p-1.5 transition-colors">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+        
+        <div class="p-4 flex-1 overflow-y-auto space-y-2">
+            <!-- Link to Main App -->
+            <a href="index.html" class="flex items-center p-3 rounded-xl hover:bg-white/5 text-gray-400 hover:text-blue-400 transition-colors group">
+                <i data-lucide="droplet" class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform"></i>
+                <span data-i18n="menuFuelCheck" class="font-medium">ඉන්ධන පරීක්ෂාව</span>
+            </a>
+            
+            <!-- Active Link (Mileage Calc) -->
+            <a href="#" class="flex items-center p-3 rounded-xl bg-primary/20 text-primary border border-primary/30 group mt-2">
+                <i data-lucide="gauge" class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform"></i>
+                <span data-i18n="menuMileage" class="font-medium">ඉන්ධන කාර්යක්ෂමතා ගණකය</span>
+            </a>
+
+            <!-- Check Station Fuel Status -->
+            <a href="https://fuelpass.gov.lk/" target="_blank" class="flex items-center p-3 rounded-xl hover:bg-white/5 text-orange-400 hover:text-orange-300 transition-colors group mt-2 border border-orange-500/10">
+                <i data-lucide="map-pin" class="w-5 h-5 mr-3 group-hover:-translate-y-1 transition-transform"></i>
+                <span data-i18n="menuShedStatus" class="font-medium">පිරවුම්හල් වල ඉන්ධන තත්ත්වය</span>
+            </a>
+
+            <a href="https://smartaiworldlk.blogspot.com/" target="_blank" class="flex items-center p-3 rounded-xl hover:bg-white/5 text-gray-400 hover:text-blue-400 transition-colors group mt-4">
+                <i data-lucide="external-link" class="w-5 h-5 mr-3 group-hover:-translate-y-1 transition-transform"></i>
+                <span data-i18n="visitBlogBtn" class="font-medium">Smart Ai World Lk බ්ලොග් අඩවිය</span>
+            </a>
+        </div>
+        
+        <div class="p-4 border-t border-white/10 bg-black/20 text-center">
+            <p class="text-xs text-gray-500">Smart Ai World Lk © 2024</p>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="w-full max-w-lg glass-panel rounded-3xl overflow-hidden animate-slide-up z-10 my-8 mt-16">
+        
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-emerald-500 to-teal-600 p-6 text-center relative overflow-hidden">
+            <div class="absolute -top-10 -right-10 opacity-20">
+                <i data-lucide="gauge" class="w-40 h-40"></i>
+            </div>
+            <div class="relative z-10 pt-2">
+                <div class="inline-flex items-center justify-center p-3 bg-white/20 rounded-2xl mb-4 backdrop-blur-sm">
+                    <i data-lucide="gauge" class="w-8 h-8 text-white"></i>
+                </div>
+                <h1 class="text-2xl sm:text-3xl font-bold mb-2 tracking-wide" data-i18n="toolTitle">ඉන්ධන කාර්යක්ෂමතා ගණකය</h1>
+                <p class="text-emerald-100 text-sm font-medium" data-i18n="toolSubtitle">ඔබේ වාහනයේ ඉන්ධන පරිභෝජනය ගණනය කරන්න</p>
+            </div>
+        </div>
+
+        <!-- Body -->
+        <div class="p-8">
+            <!-- Input Form -->
+            <div class="space-y-5 mb-8">
+                
+                <!-- Distance Input -->
+                <div>
+                    <label for="distance" class="block text-sm font-medium text-gray-300 mb-2" data-i18n="distanceLabel">
+                        ගමන් කළ දුර (Km)
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <i data-lucide="map" class="w-5 h-5 text-gray-400"></i>
+                        </div>
+                        <input type="number" id="distance" data-i18n="distancePlaceholder"
+                            class="block w-full pl-12 pr-4 py-4 bg-dark/50 border border-gray-600 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 text-lg font-mono"
+                            placeholder="උදා: 150">
+                    </div>
+                </div>
+
+                <!-- Fuel Amount Input -->
+                <div>
+                    <label for="fuelAmount" class="block text-sm font-medium text-gray-300 mb-2" data-i18n="fuelAmountLabel">
+                        ලබාගත් ඉන්ධන ප්‍රමාණය (ලීටර්)
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <i data-lucide="droplet" class="w-5 h-5 text-gray-400"></i>
+                        </div>
+                        <input type="number" id="fuelAmount" data-i18n="fuelAmountPlaceholder"
+                            class="block w-full pl-12 pr-4 py-4 bg-dark/50 border border-gray-600 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 text-lg font-mono"
+                            placeholder="උදා: 10">
+                    </div>
+                </div>
+
+                <!-- Fuel Price Input -->
+                <div>
+                    <label for="fuelPrice" class="block text-sm font-medium text-gray-300 mb-2" data-i18n="fuelPriceLabel">
+                        ඉන්ධන ලීටරයක මිල (රු.)
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <i data-lucide="banknote" class="w-5 h-5 text-gray-400"></i>
+                        </div>
+                        <input type="number" id="fuelPrice" data-i18n="fuelPricePlaceholder"
+                            class="block w-full pl-12 pr-4 py-4 bg-dark/50 border border-gray-600 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 text-lg font-mono"
+                            placeholder="උදා: 330">
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Check Button -->
+            <button onclick="calculateMileage()" 
+                class="w-full bg-primary hover:bg-emerald-500 text-white font-bold py-4 px-6 rounded-xl shadow-lg shadow-primary/30 transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center group">
+                <span data-i18n="calcBtn">ගණනය කරන්න</span>
+                <i data-lucide="calculator" class="w-5 h-5 ml-2 group-hover:scale-110 transition-transform"></i>
+            </button>
+
+            <!-- Result Section -->
+            <div id="resultCard" class="hidden mt-8 rounded-2xl p-6 transform transition-all duration-500 scale-95 opacity-0 bg-emerald-500/10 border border-emerald-500/30">
+                <h3 class="text-center text-lg font-bold mb-6 text-emerald-400" data-i18n="resultTitle">ප්‍රතිඵලය</h3>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <!-- Efficiency Card -->
+                    <div class="bg-black/40 rounded-xl p-4 text-center border border-white/5">
+                        <i data-lucide="leaf" class="w-6 h-6 text-emerald-400 mx-auto mb-2"></i>
+                        <p class="text-xs text-gray-400 mb-1" data-i18n="resEfficiency">ඉන්ධන කාර්යක්ෂමතාව</p>
+                        <p class="text-xl font-bold text-white"><span id="resKmPl">0</span> <span class="text-sm font-normal text-gray-300">Km/L</span></p>
+                    </div>
+                    
+                    <!-- Cost Card -->
+                    <div class="bg-black/40 rounded-xl p-4 text-center border border-white/5">
+                        <i data-lucide="coins" class="w-6 h-6 text-amber-400 mx-auto mb-2"></i>
+                        <p class="text-xs text-gray-400 mb-1" data-i18n="resCost">1 Km සඳහා පිරිවැය</p>
+                        <p class="text-xl font-bold text-white"><span class="text-sm font-normal text-gray-300">Rs.</span> <span id="resCostPerKm">0</span></p>
+                    </div>
+                </div>
+
+                <div id="errorMsg" class="hidden mt-4 text-center text-red-400 text-sm font-medium bg-red-500/10 p-3 rounded-lg border border-red-500/20" data-i18n="errorValidInputs">කරුණාකර නිවැරදි අගයන් ඇතුළත් කරන්න.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back Button -->
+    <div class="mb-8 text-center z-10">
+        <a href="index.html" class="inline-flex items-center text-gray-400 hover:text-white transition-colors bg-white/5 hover:bg-white/10 px-6 py-3 rounded-full border border-white/10">
+            <i data-lucide="arrow-left" class="w-4 h-4 mr-2"></i>
+            <span data-i18n="backToHome">ප්‍රධාන පිටුවට යන්න</span>
+        </a>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        // ---------------- LANGUAGE & TRANSLATION SYSTEM ----------------
+        const translations = {
+            si: {
+                menuTitle: "මෙනුව (Menu)",
+                menuFuelCheck: "ඉන්ධන පරීක්ෂාව",
+                menuMileage: "ඉන්ධන කාර්යක්ෂමතා ගණකය",
+                menuShedStatus: "පිරවුම්හල් වල ඉන්ධන තත්ත්වය",
+                visitBlogBtn: "Smart Ai World Lk බ්ලොග් අඩවිය",
+                toolTitle: "ඉන්ධන කාර්යක්ෂමතා ගණකය",
+                toolSubtitle: "ඔබේ වාහනයේ ඉන්ධන පරිභෝජනය ගණනය කරන්න",
+                distanceLabel: "ගමන් කළ දුර (Km)",
+                distancePlaceholder: "උදා: 150",
+                fuelAmountLabel: "ලබාගත් ඉන්ධන ප්‍රමාණය (ලීටර්)",
+                fuelAmountPlaceholder: "උදා: 10",
+                fuelPriceLabel: "ඉන්ධන ලීටරයක මිල (රු.)",
+                fuelPricePlaceholder: "උදා: 330",
+                calcBtn: "ගණනය කරන්න",
+                resultTitle: "ඔබේ ප්‍රතිඵලය",
+                resEfficiency: "ඉන්ධන කාර්යක්ෂමතාව (වැඩ කරන දුර)",
+                resCost: "1 Km සඳහා යන වියදම",
+                errorValidInputs: "කරුණාකර සියලුම කොටු සඳහා නිවැරදි අගයන් ඇතුළත් කරන්න.",
+                backToHome: "ප්‍රධාන පිටුවට යන්න"
+            },
+            en: {
+                menuTitle: "Menu",
+                menuFuelCheck: "Fuel Check",
+                menuMileage: "Mileage Calculator",
+                menuShedStatus: "Station Fuel Status",
+                visitBlogBtn: "Smart Ai World Lk Blog",
+                toolTitle: "Fuel Mileage Calculator",
+                toolSubtitle: "Calculate your vehicle's fuel consumption",
+                distanceLabel: "Distance Traveled (Km)",
+                distancePlaceholder: "Ex: 150",
+                fuelAmountLabel: "Fuel Amount Added (Liters)",
+                fuelAmountPlaceholder: "Ex: 10",
+                fuelPriceLabel: "Fuel Price per Liter (Rs.)",
+                fuelPricePlaceholder: "Ex: 330",
+                calcBtn: "Calculate Now",
+                resultTitle: "Your Result",
+                resEfficiency: "Fuel Economy",
+                resCost: "Cost per Km",
+                errorValidInputs: "Please enter valid numbers in all fields.",
+                backToHome: "Back to Home"
+            },
+            ta: {
+                menuTitle: "பட்டியல்",
+                menuFuelCheck: "எரிபொருள் சரிபார்ப்பு",
+                menuMileage: "மைலேஜ் கால்குலேட்டர்",
+                menuShedStatus: "எரிபொருள் நிலைய நிலை",
+                visitBlogBtn: "Smart Ai World Lk வலைப்பதிவு",
+                toolTitle: "மைலேஜ் கால்குலேட்டர்",
+                toolSubtitle: "உங்கள் வாகனத்தின் எரிபொருள் பயன்பாட்டை கணக்கிடுங்கள்",
+                distanceLabel: "பயணித்த தூரம் (Km)",
+                distancePlaceholder: "உதா: 150",
+                fuelAmountLabel: "எரிபொருள் அளவு (லிட்டர்கள்)",
+                fuelAmountPlaceholder: "உதா: 10",
+                fuelPriceLabel: "ஒரு லிட்டர் எரிபொருள் விலை (ரூ.)",
+                fuelPricePlaceholder: "உதா: 330",
+                calcBtn: "கணக்கிடுங்கள்",
+                resultTitle: "உங்கள் முடிவு",
+                resEfficiency: "எரிபொருள் சிக்கனம்",
+                resCost: "ஒரு கிமீக்கான செலவு",
+                errorValidInputs: "தயவுசெய்து சரியான மதிப்புகளை உள்ளிடவும்.",
+                backToHome: "முகப்புப் பக்கத்திற்குச் செல்லவும்"
+            }
+        };
+
+        let currentLang = localStorage.getItem('national_fuel_lang') || 'si';
+
+        function t(key) { return translations[currentLang][key]; }
+
+        function changeLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('national_fuel_lang', lang);
+            document.getElementById('langSwitcher').value = lang;
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (el.tagName === 'INPUT' && el.hasAttribute('placeholder')) {
+                    el.placeholder = t(key);
+                } else {
+                    el.innerHTML = t(key);
+                }
+            });
+        }
+
+        window.onload = function() {
+            changeLanguage(currentLang);
+        };
+
+        function calculateMileage() {
+            const distance = parseFloat(document.getElementById('distance').value);
+            const fuel = parseFloat(document.getElementById('fuelAmount').value);
+            const price = parseFloat(document.getElementById('fuelPrice').value);
+            
+            const resultCard = document.getElementById('resultCard');
+            const errorMsg = document.getElementById('errorMsg');
+            
+            resultCard.classList.remove('hidden');
+            setTimeout(() => {
+                resultCard.classList.remove('scale-95', 'opacity-0');
+                resultCard.classList.add('scale-100', 'opacity-100');
+            }, 10);
+
+            if (isNaN(distance) || isNaN(fuel) || isNaN(price) || fuel <= 0 || distance <= 0) {
+                document.getElementById('resKmPl').innerText = "0.0";
+                document.getElementById('resCostPerKm').innerText = "0.00";
+                errorMsg.classList.remove('hidden');
+                return;
+            }
+
+            errorMsg.classList.add('hidden');
+
+            const kmpl = (distance / fuel).toFixed(1);
+            const costPerKm = (price / (distance / fuel)).toFixed(2);
+
+            document.getElementById('resKmPl').innerText = kmpl;
+            document.getElementById('resCostPerKm').innerText = costPerKm;
+        }
+
+        // ---------------- SIDEBAR SYSTEM ----------------
+        function openSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            overlay.classList.remove('hidden');
+            setTimeout(() => {
+                overlay.classList.remove('opacity-0');
+                sidebar.classList.remove('-translate-x-full');
+            }, 10);
+        }
+
+        function closeSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            overlay.classList.add('opacity-0');
+            sidebar.classList.add('-translate-x-full');
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+            }, 300);
+        }
+    </script>
+</body>
+</html>
