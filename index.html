@@ -179,6 +179,18 @@
 
         <!-- Body -->
         <div class="p-8">
+            
+            <!-- Official Notice (Updated) -->
+            <div class="mb-8 p-4 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-start space-x-3 shadow-inner">
+                <div class="mt-0.5 text-blue-400">
+                    <i data-lucide="info" class="w-5 h-5 animate-pulse"></i>
+                </div>
+                <div>
+                    <h4 class="text-sm font-bold text-blue-300 mb-1" data-i18n="noticeTitle">විශේෂ නිවේදනයයි</h4>
+                    <p class="text-xs text-blue-100/90 leading-relaxed" data-i18n="noticeDesc">වාහන ලියාපදිංචි කිරීමේදී ඇතිවන ගැටළු විසඳා ගැනීමට හෝ වංචනික ක්‍රියාවන් පිළිබඳ දැනුම් දීමට <strong>076-019 1919</strong> අංකයට WhatsApp පණිවිඩයක් යොමු කරන්න. (ඩිජිටල් ආර්ථික අමාත්‍යාංශය)</p>
+                </div>
+            </div>
+
             <!-- Date Info -->
             <div class="flex items-center justify-between mb-8 pb-6 border-b border-white/10">
                 <div>
@@ -451,6 +463,8 @@
                 menuTitle: "මෙනුව (Menu)",
                 menuFuelCheck: "ඉන්ධන පරීක්ෂාව",
                 menuNewTool: "අලුත් මෙවලම (ඉදිරියේදී)",
+                noticeTitle: "විශේෂ නිවේදනයයි",
+                noticeDesc: "වාහන ලියාපදිංචි කිරීමේදී ඇතිවන ගැටළු විසඳා ගැනීමට හෝ වංචනික ක්‍රියාවන් පිළිබඳ දැනුම් දීමට <strong>076-019 1919</strong> අංකයට WhatsApp පණිවිඩයක් යොමු කරන්න. (ඩිජිටල් ආර්ථික අමාත්‍යාංශය)",
                 odd: "ඔත්තේ", even: "ඉරට්ටේ",
                 oddDayStr: "ඔත්තේ දිනයක්", evenDayStr: "ඉරට්ටේ දිනයක්",
                 invalidTitle: "වැරදි දත්තයකි!",
@@ -510,6 +524,8 @@
                 menuTitle: "Menu",
                 menuFuelCheck: "Fuel Check",
                 menuNewTool: "New Tool (Coming Soon)",
+                noticeTitle: "Special Notice",
+                noticeDesc: "To resolve vehicle registration issues or report fraudulent activities, send a WhatsApp message to <strong>076-019 1919</strong>. (Ministry of Digital Economy)",
                 odd: "Odd", even: "Even",
                 oddDayStr: "An Odd Day", evenDayStr: "An Even Day",
                 invalidTitle: "Invalid Data!",
@@ -569,6 +585,8 @@
                 menuTitle: "பட்டியல்",
                 menuFuelCheck: "எரிபொருள் சரிபார்ப்பு",
                 menuNewTool: "புதிய கருவி (விரைவில்)",
+                noticeTitle: "விசேட அறிவிப்பு",
+                noticeDesc: "வாகனப் பதிவு சிக்கல்களைத் தீர்க்க அல்லது மோசடியான செயல்பாடுகளைப் புகாரளிக்க <strong>076-019 1919</strong> என்ற எண்ணுக்கு WhatsApp செய்தி அனுப்பவும். (டிஜிட்டல் பொருளாதார அமைச்சு)",
                 odd: "ஒற்றை", even: "இரட்டை",
                 oddDayStr: "ஒரு ஒற்றை நாள்", evenDayStr: "ஒரு இரட்டை நாள்",
                 invalidTitle: "தவறான தரவு!",
@@ -599,7 +617,8 @@
                 if (el.tagName === 'INPUT' && el.hasAttribute('placeholder')) {
                     el.placeholder = t(key);
                 } else {
-                    el.innerText = t(key);
+                    // Changed innerText to innerHTML to allow <strong> tags in translations
+                    el.innerHTML = t(key);
                 }
             });
 
