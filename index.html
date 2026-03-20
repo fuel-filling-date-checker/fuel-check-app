@@ -135,14 +135,14 @@
                 <span data-i18n="menuFuelCheck" class="font-medium">ඉන්ධන පරීක්ෂාව</span>
             </a>
             
-            <!-- Future Tool Placeholder -->
-            <a href="#" class="flex items-center p-3 rounded-xl hover:bg-white/5 text-gray-400 hover:text-white transition-colors group">
-                <i data-lucide="wrench" class="w-5 h-5 mr-3 group-hover:rotate-45 transition-transform"></i>
-                <span data-i18n="menuNewTool" class="font-medium">අලුත් මෙවලම (ඉදිරියේදී)</span>
+            <!-- Check Station Fuel Status (Updated from Future Tool) -->
+            <a href="https://fuelpass.gov.lk/" target="_blank" class="flex items-center p-3 rounded-xl hover:bg-white/5 text-orange-400 hover:text-orange-300 transition-colors group mt-2 border border-orange-500/10">
+                <i data-lucide="map-pin" class="w-5 h-5 mr-3 group-hover:-translate-y-1 transition-transform"></i>
+                <span data-i18n="menuShedStatus" class="font-medium">පිරවුම්හල් වල ඉන්ධන තත්ත්වය</span>
             </a>
 
             <!-- QR Code Link -->
-            <a href="https://fuelpass.gov.lk/" target="_blank" class="flex items-center p-3 rounded-xl hover:bg-white/5 text-emerald-400 hover:text-emerald-300 transition-colors group mt-4 border border-emerald-500/10">
+            <a href="https://fuelpass.gov.lk/" target="_blank" class="flex items-center p-3 rounded-xl hover:bg-white/5 text-emerald-400 hover:text-emerald-300 transition-colors group mt-2 border border-emerald-500/10">
                 <i data-lucide="qr-code" class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform"></i>
                 <span data-i18n="getQrBtn" class="font-medium">ඉන්ධන QR එක හදාගන්න</span>
             </a>
@@ -311,6 +311,12 @@
                 <span data-i18n="getQrBtn" class="font-medium text-emerald-100 hover:text-white transition-colors">ඉන්ධන QR එක හදාගන්න (Fuel Pass)</span>
             </a>
 
+            <!-- Check Station Fuel Status Button (New) -->
+            <a href="https://fuelpass.gov.lk/" target="_blank" class="inline-flex items-center justify-center px-5 py-2.5 bg-orange-500/20 hover:bg-orange-500/30 border border-orange-500/30 rounded-xl text-sm transition-all duration-300 w-full group shadow-lg">
+                <i data-lucide="map-pin" class="w-4 h-4 mr-2 text-orange-400 group-hover:scale-110 transition-transform"></i>
+                <span data-i18n="checkShedBtn" class="font-medium text-orange-100 hover:text-white transition-colors">පිරවුම්හල් වල ඉන්ධන තියෙනවද බලන්න</span>
+            </a>
+
             <a href="https://smartaiworldlk.blogspot.com/" target="_blank" class="inline-flex items-center justify-center px-5 py-2.5 bg-black/30 hover:bg-black/50 border border-white/10 rounded-xl text-sm text-primary hover:text-blue-400 transition-all duration-300 w-full group">
                 <i data-lucide="external-link" class="w-4 h-4 mr-2 group-hover:scale-110 transition-transform"></i>
                 <span data-i18n="visitBlogBtn" class="font-medium">Smart Ai World Lk බ්ලොග් අඩවිය</span>
@@ -460,9 +466,10 @@
                 otherLinksHeading: "අපේ අනෙකුත් වෙබ් ලිපින",
                 visitBlogBtn: "Smart Ai World Lk බ්ලොග් අඩවිය",
                 getQrBtn: "ඉන්ධන QR එක හදාගන්න (Fuel Pass)",
+                checkShedBtn: "පිරවුම්හල් වල ඉන්ධන තියෙනවද බලන්න",
                 menuTitle: "මෙනුව (Menu)",
                 menuFuelCheck: "ඉන්ධන පරීක්ෂාව",
-                menuNewTool: "අලුත් මෙවලම (ඉදිරියේදී)",
+                menuShedStatus: "පිරවුම්හල් වල ඉන්ධන තත්ත්වය",
                 noticeTitle: "විශේෂ නිවේදනයයි",
                 noticeDesc: "වාහන ලියාපදිංචි කිරීමේදී ඇතිවන ගැටළු විසඳා ගැනීමට හෝ වංචනික ක්‍රියාවන් පිළිබඳ දැනුම් දීමට <strong>076-019 1919</strong> අංකයට WhatsApp පණිවිඩයක් යොමු කරන්න. (ඩිජිටල් ආර්ථික අමාත්‍යාංශය)",
                 odd: "ඔත්තේ", even: "ඉරට්ටේ",
@@ -521,9 +528,10 @@
                 otherLinksHeading: "Our Other Web Links",
                 visitBlogBtn: "Smart Ai World Lk Blog",
                 getQrBtn: "Get Fuel Pass QR Code",
+                checkShedBtn: "Check Fuel Availability at Stations",
                 menuTitle: "Menu",
                 menuFuelCheck: "Fuel Check",
-                menuNewTool: "New Tool (Coming Soon)",
+                menuShedStatus: "Station Fuel Status",
                 noticeTitle: "Special Notice",
                 noticeDesc: "To resolve vehicle registration issues or report fraudulent activities, send a WhatsApp message to <strong>076-019 1919</strong>. (Ministry of Digital Economy)",
                 odd: "Odd", even: "Even",
@@ -582,9 +590,10 @@
                 otherLinksHeading: "எங்கள் பிற இணைய இணைப்புகள்",
                 visitBlogBtn: "Smart Ai World Lk வலைப்பதிவு",
                 getQrBtn: "எரிபொருள் QR குறியீட்டைப் பெறுக",
+                checkShedBtn: "நிலையங்களில் எரிபொருள் உள்ளதா என சரிபார்க்கவும்",
                 menuTitle: "பட்டியல்",
                 menuFuelCheck: "எரிபொருள் சரிபார்ப்பு",
-                menuNewTool: "புதிய கருவி (விரைவில்)",
+                menuShedStatus: "எரிபொருள் நிலைய நிலை",
                 noticeTitle: "விசேட அறிவிப்பு",
                 noticeDesc: "வாகனப் பதிவு சிக்கல்களைத் தீர்க்க அல்லது மோசடியான செயல்பாடுகளைப் புகாரளிக்க <strong>076-019 1919</strong> என்ற எண்ணுக்கு WhatsApp செய்தி அனுப்பவும். (டிஜிட்டல் பொருளாதார அமைச்சு)",
                 odd: "ஒற்றை", even: "இரட்டை",
