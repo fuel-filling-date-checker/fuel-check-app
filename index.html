@@ -631,18 +631,13 @@
         }
 
         window.onload = function() {
+            // භාෂාව පමණක් මතක තබා ගනී. පරණ වාහන අංක මැකී යයි.
             const savedLang = localStorage.getItem('national_fuel_lang');
             if (savedLang && translations[savedLang]) {
                 changeLanguage(savedLang);
             } else {
                 updateDynamicUI();
             }
-
-            const savedVehicleNo = localStorage.getItem('national_fuel_vehicle_no');
-            const savedVehicleType = localStorage.getItem('national_fuel_vehicle_type');
-
-            if(savedVehicleNo) document.getElementById('vehicleNo').value = savedVehicleNo;
-            if(savedVehicleType) document.getElementById('vehicleType').value = savedVehicleType;
         };
 
         function checkFuelEligibility() {
@@ -654,9 +649,6 @@
             const resultCard = document.getElementById('resultCard');
             const quotaContainer = document.getElementById('quotaContainer');
             const waShareBtn = document.getElementById('waShareBtn');
-            
-            localStorage.setItem('national_fuel_vehicle_no', inputVal);
-            localStorage.setItem('national_fuel_vehicle_type', typeVal);
 
             const lastDigitMatch = inputVal.match(/\d(?=\D*$)/);
 
@@ -769,7 +761,7 @@
             if (event.target === this) closeHelpModal();
         });
 
-        // ---------------- SIDEBAR SYSTEM (NEW) ----------------
+        // ---------------- SIDEBAR SYSTEM ----------------
         function openSidebar() {
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('sidebarOverlay');
