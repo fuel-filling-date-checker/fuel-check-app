@@ -90,12 +90,18 @@
         }
     </style>
 </head>
-<body class="text-white antialiased flex flex-col justify-center items-center p-4 min-h-screen relative">
+<body class="text-white antialiased flex flex-col justify-center items-center p-4 min-h-screen relative overflow-x-hidden">
 
-    <!-- Language Switcher -->
-    <div class="absolute top-4 right-4 z-50">
+    <!-- Top Navigation Bar (Hamburger & Language) -->
+    <div class="absolute top-4 left-4 z-40">
+        <button onclick="openSidebar()" class="p-2.5 bg-black/40 backdrop-blur-md text-white rounded-xl border border-white/20 hover:bg-white/20 transition-all duration-300 shadow-lg">
+            <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+    </div>
+
+    <div class="absolute top-4 right-4 z-40">
         <div class="relative">
-            <select id="langSwitcher" onchange="changeLanguage(this.value)" class="bg-black/40 backdrop-blur-md text-white text-sm font-medium rounded-full pl-4 pr-10 py-2 border border-white/20 focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 cursor-pointer outline-none">
+            <select id="langSwitcher" onchange="changeLanguage(this.value)" class="bg-black/40 backdrop-blur-md text-white text-sm font-medium rounded-full pl-4 pr-10 py-2 border border-white/20 focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 cursor-pointer outline-none shadow-lg">
                 <option value="si">සිංහල</option>
                 <option value="en">English</option>
                 <option value="ta">தமிழ்</option>
@@ -106,15 +112,63 @@
         </div>
     </div>
 
+    <!-- Sidebar Overlay -->
+    <div id="sidebarOverlay" onclick="closeSidebar()" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300"></div>
+
+    <!-- Sidebar Menu -->
+    <div id="sidebar" class="fixed inset-y-0 left-0 w-72 bg-dark/95 backdrop-blur-xl border-r border-white/10 z-50 transform -translate-x-full transition-transform duration-300 flex flex-col shadow-2xl">
+        <div class="p-5 border-b border-white/10 flex justify-between items-center bg-secondary/50">
+            <h2 class="text-lg font-bold text-white flex items-center">
+                <i data-lucide="grid" class="w-5 h-5 mr-2 text-primary"></i>
+                <span data-i18n="menuTitle">මෙනුව (Menu)</span>
+            </h2>
+            <button onclick="closeSidebar()" class="text-gray-400 hover:text-white bg-white/5 rounded-full p-1.5 transition-colors">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+        
+        <!-- Sidebar Links -->
+        <div class="p-4 flex-1 overflow-y-auto space-y-2">
+            <!-- Active Link -->
+            <a href="#" class="flex items-center p-3 rounded-xl bg-primary/20 text-primary border border-primary/30 group">
+                <i data-lucide="droplet" class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform"></i>
+                <span data-i18n="menuFuelCheck" class="font-medium">ඉන්ධන පරීක්ෂාව</span>
+            </a>
+            
+            <!-- Future Tool Placeholder -->
+            <a href="#" class="flex items-center p-3 rounded-xl hover:bg-white/5 text-gray-400 hover:text-white transition-colors group">
+                <i data-lucide="wrench" class="w-5 h-5 mr-3 group-hover:rotate-45 transition-transform"></i>
+                <span data-i18n="menuNewTool" class="font-medium">අලුත් මෙවලම (ඉදිරියේදී)</span>
+            </a>
+
+            <!-- QR Code Link -->
+            <a href="https://fuelpass.gov.lk/" target="_blank" class="flex items-center p-3 rounded-xl hover:bg-white/5 text-emerald-400 hover:text-emerald-300 transition-colors group mt-4 border border-emerald-500/10">
+                <i data-lucide="qr-code" class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform"></i>
+                <span data-i18n="getQrBtn" class="font-medium">ඉන්ධන QR එක හදාගන්න</span>
+            </a>
+            
+            <!-- Blog Link -->
+            <a href="https://smartaiworldlk.blogspot.com/" target="_blank" class="flex items-center p-3 rounded-xl hover:bg-white/5 text-gray-400 hover:text-blue-400 transition-colors group">
+                <i data-lucide="external-link" class="w-5 h-5 mr-3 group-hover:-translate-y-1 transition-transform"></i>
+                <span data-i18n="visitBlogBtn" class="font-medium">Smart Ai World Lk බ්ලොග් අඩවිය</span>
+            </a>
+        </div>
+        
+        <!-- Sidebar Footer -->
+        <div class="p-4 border-t border-white/10 bg-black/20 text-center">
+            <p class="text-xs text-gray-500">Smart Ai World Lk © 2024</p>
+        </div>
+    </div>
+
     <!-- Main Container -->
-    <div class="w-full max-w-lg glass-panel rounded-3xl overflow-hidden animate-slide-up z-10 my-8">
+    <div class="w-full max-w-lg glass-panel rounded-3xl overflow-hidden animate-slide-up z-10 my-8 mt-16">
         
         <!-- Header -->
         <div class="bg-gradient-to-r from-primary to-blue-600 p-6 text-center relative overflow-hidden">
             <div class="absolute -top-10 -right-10 opacity-20">
                 <i data-lucide="fuel" class="w-40 h-40"></i>
             </div>
-            <div class="relative z-10 pt-4">
+            <div class="relative z-10 pt-2">
                 <div class="inline-flex items-center justify-center p-3 bg-white/20 rounded-2xl mb-4 backdrop-blur-sm">
                     <i data-lucide="fuel" class="w-8 h-8 text-white"></i>
                 </div>
@@ -240,20 +294,18 @@
         <div class="mb-4 border-t border-white/10 pt-4 w-full flex flex-col gap-2">
             <p class="text-gray-400 text-xs mb-2 uppercase tracking-wider font-semibold" data-i18n="otherLinksHeading">අපේ අනෙකුත් වෙබ් ලිපින</p>
             
-            <!-- Fuel Pass QR Link (New) -->
             <a href="https://fuelpass.gov.lk/" target="_blank" class="inline-flex items-center justify-center px-5 py-2.5 bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/30 rounded-xl text-sm transition-all duration-300 w-full group shadow-lg">
                 <i data-lucide="qr-code" class="w-4 h-4 mr-2 text-emerald-400 group-hover:scale-110 transition-transform"></i>
-                <span data-i18n="getQrBtn" class="font-medium text-emerald-100 hover:text-white transition-colors">ඉන්ධන QR එක හදාගන්න (Government Link)</span>
+                <span data-i18n="getQrBtn" class="font-medium text-emerald-100 hover:text-white transition-colors">ඉන්ධන QR එක හදාගන්න (Fuel Pass)</span>
             </a>
 
-            <!-- Blog Link -->
             <a href="https://smartaiworldlk.blogspot.com/" target="_blank" class="inline-flex items-center justify-center px-5 py-2.5 bg-black/30 hover:bg-black/50 border border-white/10 rounded-xl text-sm text-primary hover:text-blue-400 transition-all duration-300 w-full group">
                 <i data-lucide="external-link" class="w-4 h-4 mr-2 group-hover:scale-110 transition-transform"></i>
                 <span data-i18n="visitBlogBtn" class="font-medium">Smart Ai World Lk බ්ලොග් අඩවිය</span>
             </a>
         </div>
 
-        <p class="text-gray-500 text-xs mb-3" data-i18n="footerText">
+        <p class="text-gray-500 text-xs mb-3 mt-4" data-i18n="footerText">
             මෙම පද්ධතිය මගින් රජයේ ඔත්තේ/ඉරට්ටේ තෙල් බෙදා හැරීමේ නීති රීති වලට අනුකූලව දත්ත පෙන්වනු ලබයි.
         </p>
         
@@ -261,10 +313,6 @@
             <i data-lucide="shield-check" class="w-3 h-3 mr-1"></i>
             <span data-i18n="privacyBtn">ප්‍රතිපත්ති සහ වගකීම් ප්‍රකාශය</span>
         </button>
-
-        <p class="text-gray-400 text-xs font-medium tracking-wider mt-1">
-            Powered by <span class="text-primary font-bold">Smart Ai Word Lk</span>
-        </p>
     </div>
 
     <!-- Privacy Policy Modal -->
@@ -286,12 +334,10 @@
                     <h3 class="font-semibold text-white mb-1 text-base" data-i18n="privacy1Title">දත්ත සුරක්ෂිතභාවය (Privacy Policy)</h3>
                     <p class="leading-relaxed" data-i18n="privacy1Desc">ඔබ මෙහි ඇතුළත් කරන වාහන අංක කිසිවක් අපගේ සේවාදායකයන්හි (Servers) ගබඩා නොකරන අතර, තෙල් ලබාගැනීමේ හැකියාව ගණනය කිරීම සම්පූර්ණයෙන්ම ඔබගේ දුරකථනය හෝ පරිගණකය (Local Browser) තුලම පමණක් ආරක්ෂිතව සිදු වේ.</p>
                 </div>
-                
                 <div>
                     <h3 class="font-semibold text-white mb-1 text-base" data-i18n="privacy2Title">තොරතුරු මූලාශ්‍රය (Data Source)</h3>
                     <p class="leading-relaxed"><span data-i18n="privacy2Desc">මෙම වෙබ් අඩවියේ පෙන්වන තොරතුරු</span> <a href="https://gic.gov.lk/faq.html" target="_blank" class="text-primary hover:underline">gic.gov.lk</a> <span data-i18n="privacy2Desc2">මත පදනම්ව සකසා ඇත.</span></p>
                 </div>
-
                 <div>
                     <h3 class="font-semibold text-white mb-1 text-base" data-i18n="privacy3Title">වගකීමෙන් නිදහස් වීමේ ප්‍රකාශය (Disclaimer)</h3>
                     <p class="leading-relaxed" data-i18n="privacy3Desc">මෙය රජයේ නිල වෙබ් අඩවියක් නොවන අතර, මහජනතාවගේ පහසුව උදෙසා Smart Ai Word Lk විසින් ස්වේච්ඡාවෙන් නිර්මාණය කරන ලද මෙවලමකි. රජයේ නීති වෙනස්වීම් මත මෙහි ප්‍රතිඵල වෙනස් විය හැක.</p>
@@ -402,6 +448,9 @@
                 otherLinksHeading: "අපේ අනෙකුත් වෙබ් ලිපින",
                 visitBlogBtn: "Smart Ai World Lk බ්ලොග් අඩවිය",
                 getQrBtn: "ඉන්ධන QR එක හදාගන්න (Fuel Pass)",
+                menuTitle: "මෙනුව (Menu)",
+                menuFuelCheck: "ඉන්ධන පරීක්ෂාව",
+                menuNewTool: "අලුත් මෙවලම (ඉදිරියේදී)",
                 odd: "ඔත්තේ", even: "ඉරට්ටේ",
                 oddDayStr: "ඔත්තේ දිනයක්", evenDayStr: "ඉරට්ටේ දිනයක්",
                 invalidTitle: "වැරදි දත්තයකි!",
@@ -458,6 +507,9 @@
                 otherLinksHeading: "Our Other Web Links",
                 visitBlogBtn: "Smart Ai World Lk Blog",
                 getQrBtn: "Get Fuel Pass QR Code",
+                menuTitle: "Menu",
+                menuFuelCheck: "Fuel Check",
+                menuNewTool: "New Tool (Coming Soon)",
                 odd: "Odd", even: "Even",
                 oddDayStr: "An Odd Day", evenDayStr: "An Even Day",
                 invalidTitle: "Invalid Data!",
@@ -514,6 +566,9 @@
                 otherLinksHeading: "எங்கள் பிற இணைய இணைப்புகள்",
                 visitBlogBtn: "Smart Ai World Lk வலைப்பதிவு",
                 getQrBtn: "எரிபொருள் QR குறியீட்டைப் பெறுக",
+                menuTitle: "பட்டியல்",
+                menuFuelCheck: "எரிபொருள் சரிபார்ப்பு",
+                menuNewTool: "புதிய கருவி (விரைவில்)",
                 odd: "ஒற்றை", even: "இரட்டை",
                 oddDayStr: "ஒரு ஒற்றை நாள்", evenDayStr: "ஒரு இரட்டை நாள்",
                 invalidTitle: "தவறான தரவு!",
@@ -665,7 +720,7 @@
             }
         });
 
-        // ---------------- PRIVACY MODAL SYSTEM ----------------
+        // ---------------- MODAL SYSTEMS ----------------
         function openPrivacyModal() {
             const modal = document.getElementById('privacyModal');
             const modalContent = document.getElementById('privacyModalContent');
@@ -690,7 +745,6 @@
             if (event.target === this) closePrivacyModal();
         });
 
-        // ---------------- HELP MODAL SYSTEM (New) ----------------
         function openHelpModal() {
             const modal = document.getElementById('helpModal');
             const modalContent = document.getElementById('helpModalContent');
@@ -714,6 +768,30 @@
         document.getElementById('helpModal').addEventListener('click', function(event) {
             if (event.target === this) closeHelpModal();
         });
+
+        // ---------------- SIDEBAR SYSTEM (NEW) ----------------
+        function openSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            
+            overlay.classList.remove('hidden');
+            setTimeout(() => {
+                overlay.classList.remove('opacity-0');
+                sidebar.classList.remove('-translate-x-full');
+            }, 10);
+        }
+
+        function closeSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            
+            overlay.classList.add('opacity-0');
+            sidebar.classList.add('-translate-x-full');
+            
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+            }, 300);
+        }
 
         // ---------------- PWA INSTALLATION SYSTEM ----------------
         if ('serviceWorker' in navigator) {
