@@ -409,6 +409,864 @@
                     <div class="bg-primary/20 text-primary w-6 h-6 rounded-full flex items-center justify-center font-bold mr-3 shrink-0">6</div>
                     <p class="leading-relaxed pt-0.5" data-i18n="helpStep6">අපගේ නවතම යාවත්කාලීන කිරීම් සහ දැනුම්දීම් (Notifications) ලබා ගැනීමට, තිරයේ ඉහළින් දිස්වන පණිවිඩයෙන් 'Allow' ඔබන්න.</p>
                 </div>
+                <div class="flex items-start">
+                    <div class="bg-primary/20 text-primary w-6 h-6 rounded-full flex items-center justify-center font-bold mr-3 shrink-0">7</div>
+                    <p class="leading-relaxed pt-0.5" data-i18n="helpStep7">පිරවුම්හල් වල ඉන්ධන ඇතිදැයි පරීක්ෂා කිරීමට පහළින් ඇති 'පිරවුම්හල් වල ඉන්ධන තියෙනවද බලන්න' බොත්තම හෝ මෙනුව භාවිතා කරන්න.</p>
+                </div>
+            </div>
+            
+            <div class="p-5 border-t border-white/10 text-center bg-black/20">
+                <button onclick="closeHelpModal()" class="bg-primary hover:bg-blue-500 text-white font-medium py-2 px-6 rounded-lg transition-colors w-full" data-i18n="understandBtn">
+                    තේරුම් ගත්තා (I Understand)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        // ---------------- LANGUAGE & TRANSLATION SYSTEM ----------------
+        const translations = {
+            si: {
+                appTitle: "ඉන්ධන ලබා ගත හැකි දින පරීක්‍ෂා කිරීම",
+                appSubtitle: "අද ඔබට තෙල් ලබා ගත හැකිදැයි පරීක්ෂා කරන්න",
+                todayLabel: "අද දිනය",
+                dayTypeLabel: "අද දින වර්ගය",
+                calculating: "ගණනය කරමින්...",
+                vehicleTypeLabel: "වාහන වර්ගය",
+                optMotorcycle: "යතුරුපැදි (Motorcycles)",
+                optThreeWheeler: "ත්‍රිරෝද රථ (Three-Wheelers)",
+                optCar: "කාර් (Motor Cars)",
+                optVan: "වෑන් (Vans)",
+                optBus: "බස් (Buses)",
+                optLorry: "ලොරි (Motor Lorries)",
+                vehicleNoLabel: "වාහනයේ ලියාපදිංචි අංකය",
+                vehicleNoPlaceholder: "උදා: 1234",
+                infoText: "අවසාන ඉලක්කම් 4 පමණක් සැලකිල්ලට ගනී",
+                checkBtn: "පරීක්ෂා කරන්න",
+                quotaLabel: "සතිපතා කෝටාව:",
+                waShareBtnText: "WhatsApp හරහා යවන්න",
+                installBtnText: "App එක ෆෝන් එකට Install කරන්න",
+                footerText: "මෙම පද්ධතිය මගින් රජයේ ඔත්තේ/ඉරට්ටේ තෙල් බෙදා හැරීමේ නීති රීති වලට අනුකූලව දත්ත පෙන්වනු ලබයි.",
+                privacyBtn: "ප්‍රතිපත්ති සහ වගකීම් ප්‍රකාශය",
+                privacyModalTitle: "පෞද්ගලිකත්ව ප්‍රතිපත්තිය",
+                privacy1Title: "දත්ත සුරක්ෂිතභාවය (Privacy Policy)",
+                privacy1Desc: "ඔබ මෙහි ඇතුළත් කරන වාහන අංක කිසිවක් අපගේ සේවාදායකයන්හි (Servers) ගබඩා නොකරන අතර, තෙල් ලබාගැනීමේ හැකියාව ගණනය කිරීම සම්පූර්ණයෙන්ම ඔබගේ දුරකථනය හෝ පරිගණකය (Local Browser) තුලම පමණක් ආරක්ෂිතව සිදු වේ.",
+                privacy2Title: "තොරතුරු මූලාශ්‍රය (Data Source)",
+                privacy2Desc: "මෙම වෙබ් අඩවියේ පෙන්වන තොරතුරු",
+                privacy2Desc2: "සහ ඛනිජ තෙල් සංස්ථාවේ නිවේදන මත පදනම්ව සකසා ඇත.",
+                privacy3Title: "වගකීමෙන් නිදහස් වීමේ ප්‍රකාශය (Disclaimer)",
+                privacy3Desc: "මෙය රජයේ නිල වෙබ් අඩවියක් නොවන අතර, මහජනතාවගේ පහසුව උදෙසා Smart Ai Word Lk විසින් ස්වේච්ඡාවෙන් නිර්මාණය කරන ලද මෙවලමකි.",
+                understandBtn: "තේරුම් ගත්තා (I Understand)",
+                howToUseBtn: "ක්‍රියාකරන ආකාරය (How to Use)",
+                helpModalTitle: "භාවිතා කරන ආකාරය",
+                helpStep1: "ඉහළින් ඔබගේ භාෂාව තෝරන්න.",
+                helpStep2: "ඔබගේ වාහන වර්ගය තෝරන්න.",
+                helpStep3: "වාහනයේ ලියාපදිංචි අංකය ඇතුළත් කරන්න (උදා: 1234).",
+                helpStep4: "'පරීක්ෂා කරන්න' බොත්තම ඔබන්න.",
+                helpStep5: "ඔබට අද ඉන්ධන ලබාගත හැකිද යන්න සහ සතිපතා කෝටාව තිරයේ දිස්වනු ඇත.",
+                helpStep6: "අපගේ නවතම යාවත්කාලීන කිරීම් සහ දැනුම්දීම් (Notifications) ලබා ගැනීමට, තිරයේ ඉහළින් දිස්වන පණිවිඩයෙන් 'Allow' ඔබන්න.",
+                helpStep7: "පිරවුම්හල් වල ඉන්ධන ඇතිදැයි පරීක්ෂා කිරීමට පහළින් ඇති 'පිරවුම්හල් වල ඉන්ධන තියෙනවද බලන්න' බොත්තම හෝ මෙනුව භාවිතා කරන්න.",
+                otherLinksHeading: "අපේ අනෙකුත් වෙබ් ලිපින",
+                visitBlogBtn: "Smart Ai World Lk බ්ලොග් අඩවිය",
+                getQrBtn: "ඉන්ධන QR එක හදාගන්න (Fuel Pass)",
+                checkShedBtn: "පිරවුම්හල් වල ඉන්ධන තියෙනවද බලන්න",
+                menuTitle: "මෙනුව (Menu)",
+                menuFuelCheck: "ඉන්ධන පරීක්ෂාව",
+                menuShedStatus: "පිරවුම්හල් වල ඉන්ධන තත්ත්වය",
+                noticeTitle: "විශේෂ නිවේදනයයි",
+                noticeDesc: "වාහන ලියාපදිංචි කිරීමේදී ඇතිවන ගැටළු විසඳා ගැනීමට හෝ වංචනික ක්‍රියාවන් පිළිබඳ දැනුම් දීමට <strong>076-019 1919</strong> අංකයට WhatsApp පණිවිඩයක් යොමු කරන්න. (ඩිජිටල් ආර්ථික අමාත්‍යාංශය)",
+                odd: "ඔත්තේ", even: "ඉරට්ටේ",
+                oddDayStr: "ඔත්තේ දිනයක්", evenDayStr: "ඉරට්ටේ දිනයක්",
+                invalidTitle: "වැරදි දත්තයකි!",
+                invalidMsg: "කරුණාකර ඔබගේ වාහනයේ ලියාපදිංචි අංකය නිවැරදිව ඇතුලත් කරන්න. (උදා: 1234)",
+                successTitle: "සුභ පැතුම්!",
+                successMsg: "ඔබට අද දිනයේදී ෂෙඩ් එකෙන් ඉන්ධන ලබා ගත හැක.",
+                failTitle: "කණගාටුයි!",
+                failMsg: "ඔබගේ වාහනයට අද දිනයේදී ඉන්ධන නිකුත් කරනු නොලැබේ.",
+                lastDigitStr: "අවසාන අංකය:", todayStr: "අද දිනය:",
+                waSuccess: "✅ මගේ වාහනයට ({num}) අද තෙල් ගහන්න පුළුවන්!\n⛽ සතිපතා කෝටාව: {quota}\n\nඔයාලගෙ වාහනෙත් චෙක් කරගන්න:\n{url}",
+                waFail: "❌ මගේ වාහනයට ({num}) අද තෙල් ගහන්න බෑ.\n\nඔයාලගෙ වාහනෙත් චෙක් කරගන්න:\n{url}",
+                months: ["ජනවාරි", "පෙබරවාරි", "මාර්තු", "අප්‍රේල්", "මැයි", "ජූනි", "ජූලි", "අගෝස්තු", "සැප්තැම්බර්", "ඔක්තෝබර්", "නොවැම්බර්", "දෙසැම්බර්"],
+                quotas: { 'motorcycle': 'ලීටර් 5', 'threewheeler': 'ලීටර් 15', 'car': 'ලීටර් 15', 'van': 'ලීටර් 40', 'bus': 'ලීටර් 60', 'lorry': 'ලීටර් 200' }
+            },
+            en: {
+                appTitle: "National Fuel Check",
+                appSubtitle: "Check if you can get fuel today",
+                todayLabel: "Today's Date",
+                dayTypeLabel: "Day Type",
+                calculating: "Calculating...",
+                vehicleTypeLabel: "Vehicle Type",
+                optMotorcycle: "Motorcycles",
+                optThreeWheeler: "Three-Wheelers",
+                optCar: "Motor Cars",
+                optVan: "Vans",
+                optBus: "Buses",
+                optLorry: "Motor Lorries",
+                vehicleNoLabel: "Vehicle Registration Number",
+                vehicleNoPlaceholder: "Ex: 1234",
+                infoText: "Only the last 4 digits are considered",
+                checkBtn: "Check Eligibility",
+                quotaLabel: "Weekly Quota:",
+                waShareBtnText: "Share via WhatsApp",
+                installBtnText: "Install App to Phone",
+                footerText: "This system displays data in accordance with the government's Odd/Even fuel distribution rules.",
+                privacyBtn: "Privacy Policy & Disclaimer",
+                privacyModalTitle: "Privacy Policy",
+                privacy1Title: "Data Security",
+                privacy1Desc: "The vehicle numbers you enter here are not stored on our servers. The calculation is securely performed entirely within your local browser.",
+                privacy2Title: "Data Source",
+                privacy2Desc: "Information shown on this website is based on",
+                privacy2Desc2: "and official CEYPETCO notices.",
+                privacy3Title: "Disclaimer",
+                privacy3Desc: "This is not an official government website, but a tool voluntarily created by Smart Ai Word Lk for public convenience.",
+                understandBtn: "I Understand",
+                howToUseBtn: "How to Use App",
+                helpModalTitle: "How to Use",
+                helpStep1: "Select your preferred language at the top.",
+                helpStep2: "Select your vehicle type.",
+                helpStep3: "Enter your vehicle registration number (e.g., 1234).",
+                helpStep4: "Click on the 'Check Eligibility' button.",
+                helpStep5: "View your daily eligibility and weekly fuel quota.",
+                helpStep6: "To receive our latest updates and notifications, click 'Allow' on the prompt at the top of the screen.",
+                helpStep7: "To check fuel availability at nearby stations, use the 'Check Fuel Availability at Stations' button below or from the menu.",
+                otherLinksHeading: "Our Other Web Links",
+                visitBlogBtn: "Smart Ai World Lk Blog",
+                getQrBtn: "Get Fuel Pass QR Code",
+                checkShedBtn: "Check Fuel Availability at Stations",
+                menuTitle: "Menu",
+                menuFuelCheck: "Fuel Check",
+                menuShedStatus: "Station Fuel Status",
+                noticeTitle: "Special Notice",
+                noticeDesc: "To resolve vehicle registration issues or report fraudulent activities, send a WhatsApp message to <strong>076-019 1919</strong>. (Ministry of Digital Economy)",
+                odd: "Odd", even: "Even",
+                oddDayStr: "An Odd Day", evenDayStr: "An Even Day",
+                invalidTitle: "Invalid Data!",
+                invalidMsg: "Please enter your vehicle registration number correctly. (Ex: 1234)",
+                successTitle: "Congratulations!",
+                successMsg: "You can get fuel from the station today.",
+                failTitle: "Sorry!",
+                failMsg: "Fuel will not be issued for your vehicle today.",
+                lastDigitStr: "Last Digit:", todayStr: "Today's Date:",
+                waSuccess: "✅ I can get fuel for my vehicle ({num}) today!\n⛽ Weekly Quota: {quota}\n\nCheck your vehicle too:\n{url}",
+                waFail: "❌ I cannot get fuel for my vehicle ({num}) today.\n\nCheck your vehicle too:\n{url}",
+                months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+                quotas: { 'motorcycle': '5 Litres', 'threewheeler': '15 Litres', 'car': '15 Litres', 'van': '40 Litres', 'bus': '60 Litres', 'lorry': '200 Litres' }
+            },
+            ta: {
+                appTitle: "தேசிய எரிபொருள் சரிபார்ப்பு",
+                appSubtitle: "இன்று நீங்கள் எரிபொருள் பெற முடியுமா என சரிபார்க்கவும்",
+                todayLabel: "இன்றைய திகதி",
+                dayTypeLabel: "இன்றைய வகை",
+                calculating: "கணக்கிடப்படுகிறது...",
+                vehicleTypeLabel: "வாகன வகை",
+                optMotorcycle: "மோட்டார் சைக்கிள்கள்",
+                optThreeWheeler: "முச்சக்கர வண்டிகள்",
+                optCar: "கார்",
+                optVan: "வேன்",
+                optBus: "பஸ்",
+                optLorry: "லாரி",
+                vehicleNoLabel: "வாகன பதிவு எண்",
+                vehicleNoPlaceholder: "உதாரணம்: 1234",
+                infoText: "கடைசி 4 இலக்கங்கள் மட்டுமே கருத்தில் கொள்ளப்படும்",
+                checkBtn: "சரிபார்க்கவும்",
+                quotaLabel: "வாராந்திர ஒதுக்கீடு:",
+                waShareBtnText: "WhatsApp மூலம் பகிரவும்",
+                installBtnText: "செயலியை தொலைபேசியில் நிறுவவும்",
+                footerText: "அரசாங்கத்தின் ஒற்றை/இரட்டை எரிபொருள் விநியோக விதிகளுக்கு ஏற்ப தரவு காண்பிக்கப்படுகிறது.",
+                privacyBtn: "தனியுரிமை மற்றும் பொறுப்புத் துறப்பு",
+                privacyModalTitle: "தனியுரிமைக் கொள்கை",
+                privacy1Title: "தரவு பாதுகாப்பு (Privacy Policy)",
+                privacy1Desc: "நீங்கள் இங்கு உள்ளிடும் வாகன எண்கள் எதுவும் எங்கள் சேவையகங்களில் சேமிக்கப்படாது. கணக்கீடு முழுமையாக உங்கள் தொலைபேசி அல்லது கணினியில் (Local Browser) மட்டுமே பாதுகாப்பாக செய்யப்படுகிறது.",
+                privacy2Title: "தரவு மூல (Data Source)",
+                privacy2Desc: "இந்த இணையதளத்தில் காண்பிக்கப்படும் தகவல்கள்",
+                privacy2Desc2: "மற்றும் பெட்ரோலியக் கூட்டுத்தாபனத்தின் அதிகாரப்பூர்வ அறிவிப்புகளின் அடிப்படையில் அமைந்தது.",
+                privacy3Title: "பொறுப்புத் துறப்பு (Disclaimer)",
+                privacy3Desc: "இது ஒரு அதிகாரப்பூர்வ அரசாங்க இணையதளம் அல்ல, ஆனால் பொது வசதிக்காக Smart Ai Word Lk ஆல் முன்வந்து உருவாக்கப்பட்டது.",
+                understandBtn: "நான் புரிந்துகொண்டேன்",
+                howToUseBtn: "எப்படி பயன்படுத்துவது",
+                helpModalTitle: "பயன்படுத்தும் முறை",
+                helpStep1: "மேலே உங்கள் மொழியைத் தேர்ந்தெடுக்கவும்.",
+                helpStep2: "உங்கள் வாகன வகையைத் தேர்ந்தெடுக்கவும்.",
+                helpStep3: "உங்கள் வாகன பதிவு எண்ணை உள்ளிடவும் (உதா: 1234).",
+                helpStep4: "'சரிபார்க்கவும்' பொத்தானை அழுத்தவும்.",
+                helpStep5: "இன்றைய எரிபொருள் தகுதி மற்றும் வாராந்திர ஒதுக்கீட்டைப் பார்க்கவும்.",
+                helpStep6: "எங்கள் புதிய அறிவிப்புகளைப் பெற, திரையின் மேற்புறத்தில் தோன்றும் செய்தியில் 'Allow' என்பதை அழுத்தவும்.",
+                helpStep7: "அருகிலுள்ள நிலையங்களில் எரிபொருள் உள்ளதா என சரிபார்க்க, கீழே உள்ள 'நிலையங்களில் எரிபொருள் உள்ளதா என சரிபார்க்கவும்' பொத்தானை அல்லது மெனுவைப் பயன்படுத்தவும்.",
+                otherLinksHeading: "எங்கள் பிற இணைய இணைப்புகள்",
+                visitBlogBtn: "Smart Ai World Lk வலைப்பதிவு",
+                getQrBtn: "எரிபொருள் QR குறியீட்டைப் பெறுக",
+                checkShedBtn: "நிலையங்களில் எரிபொருள் உள்ளதா என சரிபார்க்கவும்",
+                menuTitle: "பட்டியல்",
+                menuFuelCheck: "எரிபொருள் சரிபார்ப்பு",
+                menuShedStatus: "எரிபொருள் நிலைய நிலை",
+                noticeTitle: "விசேட அறிவிப்பு",
+                noticeDesc: "வாகனப் பதிவு சிக்கல்களைத் தீர்க்க அல்லது மோசடியான செயல்பாடுகளைப் புகாரளிக்க <strong>076-019 1919</strong> என்ற எண்ணுக்கு WhatsApp செய்தி அனுப்பவும். (டிஜிட்டல் பொருளாதார அமைச்சு)",
+                odd: "ஒற்றை", even: "இரட்டை",
+                oddDayStr: "ஒரு ஒற்றை நாள்", evenDayStr: "ஒரு இரட்டை நாள்",
+                invalidTitle: "தவறான தரவு!",
+                invalidMsg: "தயவுசெய்து உங்கள் வாகன பதிவு எண்ணை சரியாக உள்ளிடவும். (உதா: 1234)",
+                successTitle: "வாழ்த்துக்கள்!",
+                successMsg: "நீங்கள் இன்று எரிபொருள் நிலையத்திலிருந்து எரிபொருள் பெறலாம்.",
+                failTitle: "மன்னிக்கவும்!",
+                failMsg: "இன்று உங்கள் வாகனத்திற்கு எரிபொருள் வழங்கப்படாது.",
+                lastDigitStr: "கடைசி இலக்கம்:", todayStr: "இன்றைய திகதி:",
+                waSuccess: "✅ இன்று எனது வாகனத்திற்கு ({num}) எரிபொருள் பெற முடியும்!\n⛽ வாராந்திர ஒதுக்கீடு: {quota}\n\nஉங்கள் வாகனத்தையும் சரிபார்க்கவும்:\n{url}",
+                waFail: "❌ இன்று எனது வாகனத்திற்கு ({num}) எரிபொருள் பெற முடியாது.\n\nஉங்கள் வாகனத்தையும் சரிபார்க்கவும்:\n{url}",
+                months: ["ஜனவரி", "பிப்ரவரி", "மார்ச்", "ஏப்ரல்", "மே", "ஜூன்", "ஜூலை", "ஆகஸ்ட்", "செப்டம்பர்", "அக்டோபர்", "நவம்பர்", "டிசம்பர்"],
+                quotas: { 'motorcycle': '5 லீட்டர்கள்', 'threewheeler': '15 லீட்டர்கள்', 'car': '15 லீட்டர்கள்', 'van': '40 லீட்டர்கள்', 'bus': '60 லீட்டர்கள்', 'lorry': '200 லீட்டர்கள்' }
+            }
+        };
+
+        let currentLang = 'si';
+
+        function t(key) { return translations[currentLang][key]; }
+
+        function changeLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('national_fuel_lang', lang);
+            document.getElementById('langSwitcher').value = lang;
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (el.tagName === 'INPUT' && el.hasAttribute('placeholder')) {
+                    el.placeholder = t(key);
+                } else {
+                    // Changed innerText to innerHTML to allow <strong> tags in translations
+                    el.innerHTML = t(key);
+                }
+            });
+
+            updateDynamicUI();
+            if (!document.getElementById('resultCard').classList.contains('hidden')) {
+                checkFuelEligibility();
+            }
+        }
+
+        let today = new Date();
+        let currentDate = today.getDate();
+        let isTodayOdd = currentDate % 2 !== 0;
+        const siteUrl = "https://fuel-filling-date-checker.github.io/fuel-check-app/";
+
+        function updateDynamicUI() {
+            const formattedDate = `${today.getFullYear()} ${t('months')[today.getMonth()]} ${today.getDate()}`;
+            document.getElementById('currentDate').innerText = formattedDate;
+
+            const dayTypeElement = document.getElementById('dayType');
+            const dayTypeBadge = document.getElementById('dayTypeBadge');
+            
+            if (isTodayOdd) {
+                dayTypeElement.innerText = `${t('oddDayStr')} (${currentDate})`;
+                dayTypeBadge.className = "inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-purple-500/20 text-purple-300 border border-purple-500/30";
+            } else {
+                dayTypeElement.innerText = `${t('evenDayStr')} (${currentDate})`;
+                dayTypeBadge.className = "inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-blue-500/20 text-blue-300 border border-blue-500/30";
+            }
+        }
+
+        window.onload = function() {
+            // භාෂාව පමණක් මතක තබා ගනී. පරණ වාහන අංක මැකී යයි.
+            const savedLang = localStorage.getItem('national_fuel_lang');
+            if (savedLang && translations[savedLang]) {
+                changeLanguage(savedLang);
+            } else {
+                updateDynamicUI();
+            }
+        };
+
+        function checkFuelEligibility() {
+            const vehicleInput = document.getElementById('vehicleNo');
+            const typeInput = document.getElementById('vehicleType');
+            const inputVal = vehicleInput.value.trim().toUpperCase();
+            const typeVal = typeInput.value;
+            
+            const resultCard = document.getElementById('resultCard');
+            const quotaContainer = document.getElementById('quotaContainer');
+            const waShareBtn = document.getElementById('waShareBtn');
+
+            const lastDigitMatch = inputVal.match(/\d(?=\D*$)/);
+
+            resultCard.classList.remove('hidden');
+            setTimeout(() => {
+                resultCard.classList.remove('scale-95', 'opacity-0');
+                resultCard.classList.add('scale-100', 'opacity-100');
+            }, 10);
+
+            if (!lastDigitMatch) {
+                quotaContainer.classList.replace('flex', 'hidden');
+                waShareBtn.classList.replace('flex', 'hidden');
+                setResultUI('bg-orange-500/20 text-orange-400 border border-orange-500/30', 'bg-orange-500 text-white', '<i data-lucide="alert-circle" class="w-8 h-8"></i>', t('invalidTitle'), t('invalidMsg'), '');
+                lucide.createIcons();
+                return;
+            }
+
+            const lastDigit = parseInt(lastDigitMatch[0], 10);
+            const isDigitOdd = lastDigit % 2 !== 0;
+            const isEligible = (isTodayOdd && isDigitOdd) || (!isTodayOdd && !isDigitOdd);
+            
+            const digitTypeText = isDigitOdd ? t('odd') : t('even');
+            const dayTypeText = isTodayOdd ? t('odd') : t('even');
+            const quota = t('quotas')[typeVal];
+            const infoString = `${t('lastDigitStr')} ${lastDigit} (${digitTypeText}) • ${t('todayStr')} ${currentDate} (${dayTypeText})`;
+
+            let shareText = "";
+
+            if (isEligible) {
+                quotaContainer.classList.replace('hidden', 'flex');
+                document.getElementById('quotaAmount').innerText = quota;
+                setResultUI('bg-success/10 border border-success/30', 'bg-success text-white shadow-lg shadow-success/40', '<i data-lucide="check-circle-2" class="w-10 h-10"></i>', t('successTitle'), t('successMsg'), infoString);
+                shareText = t('waSuccess').replace('{num}', inputVal).replace('{quota}', quota).replace('{url}', siteUrl);
+            } else {
+                quotaContainer.classList.replace('flex', 'hidden');
+                setResultUI('bg-danger/10 border border-danger/30', 'bg-danger text-white shadow-lg shadow-danger/40', '<i data-lucide="x-circle" class="w-10 h-10"></i>', t('failTitle'), t('failMsg'), infoString);
+                shareText = t('waFail').replace('{num}', inputVal).replace('{url}', siteUrl);
+            }
+
+            waShareBtn.classList.replace('hidden', 'flex');
+            waShareBtn.href = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+            lucide.createIcons();
+        }
+
+        function setResultUI(cardClass, iconBgClass, iconHTML, title, message, info) {
+            const resultCard = document.getElementById('resultCard');
+            const resultIcon = document.getElementById('resultIcon');
+            resultCard.className = `mt-8 rounded-2xl p-6 text-center transform transition-all duration-500 scale-100 opacity-100 ${cardClass}`;
+            resultIcon.className = `mx-auto w-16 h-16 rounded-full flex items-center justify-center mb-4 ${iconBgClass}`;
+            resultIcon.innerHTML = iconHTML;
+            document.getElementById('resultTitle').innerText = title;
+            document.getElementById('resultMessage').innerText = message;
+            document.getElementById('digitInfo').innerText = info;
+            document.getElementById('digitInfo').classList.toggle('hidden', info === '');
+        }
+
+        document.getElementById("vehicleNo").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                checkFuelEligibility();
+            }
+        });
+
+        // ---------------- MODAL SYSTEMS ----------------
+        function openPrivacyModal() {
+            const modal = document.getElementById('privacyModal');
+            const modalContent = document.getElementById('privacyModalContent');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+                modalContent.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closePrivacyModal() {
+            const modal = document.getElementById('privacyModal');
+            const modalContent = document.getElementById('privacyModalContent');
+            modal.classList.add('opacity-0');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            setTimeout(() => { modal.classList.add('hidden'); }, 300);
+        }
+        
+        document.getElementById('privacyModal').addEventListener('click', function(event) {
+            if (event.target === this) closePrivacyModal();
+        });
+
+        function openHelpModal() {
+            const modal = document.getElementById('helpModal');
+            const modalContent = document.getElementById('helpModalContent');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+                modalContent.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeHelpModal() {
+            const modal = document.getElementById('helpModal');
+            const modalContent = document.getElementById('helpModalContent');
+            modal.classList.add('opacity-0');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            setTimeout(() => { modal.classList.add('hidden'); }, 300);
+        }
+        
+        document.getElementById('helpModal').addEventListener('click', function(event) {
+            if (event.target === this) closeHelpModal();
+        });
+
+        // ---------------- SIDEBAR SYSTEM ----------------
+        function openSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            
+            overlay.classList.remove('hidden');
+            setTimeout(() => {
+                overlay.classList.remove('opacity-0');
+                sidebar.classList.remove('-translate-x-full');
+            }, 10);
+        }
+
+        function closeSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            
+            overlay.classList.add('opacity-0');
+            sidebar.classList.add('-translate-x-full');
+            
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+            }, 300);
+        }
+
+        // ---------------- PWA INSTALLATION SYSTEM ----------------
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                .then(() => console.log('PWA Service Worker Registered'))
+                .catch((err) => console.log('PWA Service Worker Failed', err));
+            });
+        }
+
+        let deferredPrompt;
+        const installBtn = document.getElementById('installAppBtn');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installBtn.classList.remove('hidden');
+        });
+
+        installBtn.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    console.log('User accepted the install prompt');
+                    installBtn.classList.add('hidden');
+                }
+                deferredPrompt = null;
+            }
+        });
+
+        window.addEventListener('appinstalled', () => {
+            installBtn.classList.add('hidden');
+            console.log('PWA was installed');
+        });
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f172a">
+    <link rel="apple-touch-icon" href="icon.svg">
+    
+    <title>National Fuel Check</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@300;400;500;600;700&family=Noto+Sans+Tamil:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- OneSignal Push Notifications -->
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+    <script>
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      OneSignalDeferred.push(async function(OneSignal) {
+        if (window.location.hostname === "fuel-filling-date-checker.github.io") {
+            try {
+                await OneSignal.init({
+                  appId: "67a723ef-06ab-468d-92c9-a03495507c9a",
+                });
+            } catch (error) {
+                console.error("OneSignal Initialization Error:", error);
+            }
+        } else {
+            console.log("OneSignal push notifications are disabled in this preview environment to prevent domain errors.");
+        }
+      });
+    </script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans Sinhala"', '"Noto Sans Tamil"', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#0ea5e9',
+                        secondary: '#1e293b',
+                        dark: '#0f172a',
+                        success: '#10b981',
+                        danger: '#ef4444',
+                        whatsapp: '#25D366',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-image: radial-gradient(circle at top right, #1e293b 0%, #0f172a 100%);
+            min-height: 100vh;
+        }
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+        .modal-glass {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .animate-slide-up {
+            animation: slideUp 0.6s ease-out forwards;
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+    </style>
+</head>
+<body class="text-white antialiased flex flex-col justify-center items-center p-4 min-h-screen relative overflow-x-hidden">
+
+    <!-- Top Navigation Bar (Hamburger & Language) -->
+    <div class="absolute top-4 left-4 z-40">
+        <button onclick="openSidebar()" class="p-2.5 bg-black/40 backdrop-blur-md text-white rounded-xl border border-white/20 hover:bg-white/20 transition-all duration-300 shadow-lg">
+            <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+    </div>
+
+    <div class="absolute top-4 right-4 z-40">
+        <div class="relative">
+            <select id="langSwitcher" onchange="changeLanguage(this.value)" class="bg-black/40 backdrop-blur-md text-white text-sm font-medium rounded-full pl-4 pr-10 py-2 border border-white/20 focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 cursor-pointer outline-none shadow-lg">
+                <option value="si">සිංහල</option>
+                <option value="en">English</option>
+                <option value="ta">தமிழ்</option>
+            </select>
+            <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                <i data-lucide="globe" class="w-4 h-4 text-gray-300"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar Overlay -->
+    <div id="sidebarOverlay" onclick="closeSidebar()" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300"></div>
+
+    <!-- Sidebar Menu -->
+    <div id="sidebar" class="fixed inset-y-0 left-0 w-72 bg-dark/95 backdrop-blur-xl border-r border-white/10 z-50 transform -translate-x-full transition-transform duration-300 flex flex-col shadow-2xl">
+        <div class="p-5 border-b border-white/10 flex justify-between items-center bg-secondary/50">
+            <h2 class="text-lg font-bold text-white flex items-center">
+                <i data-lucide="grid" class="w-5 h-5 mr-2 text-primary"></i>
+                <span data-i18n="menuTitle">මෙනුව (Menu)</span>
+            </h2>
+            <button onclick="closeSidebar()" class="text-gray-400 hover:text-white bg-white/5 rounded-full p-1.5 transition-colors">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+        
+        <!-- Sidebar Links -->
+        <div class="p-4 flex-1 overflow-y-auto space-y-2">
+            <!-- Active Link -->
+            <a href="#" class="flex items-center p-3 rounded-xl bg-primary/20 text-primary border border-primary/30 group">
+                <i data-lucide="droplet" class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform"></i>
+                <span data-i18n="menuFuelCheck" class="font-medium">ඉන්ධන පරීක්ෂාව</span>
+            </a>
+            
+            <!-- Check Station Fuel Status (Updated from Future Tool) -->
+            <a href="https://fuelpass.gov.lk/" target="_blank" class="flex items-center p-3 rounded-xl hover:bg-white/5 text-orange-400 hover:text-orange-300 transition-colors group mt-2 border border-orange-500/10">
+                <i data-lucide="map-pin" class="w-5 h-5 mr-3 group-hover:-translate-y-1 transition-transform"></i>
+                <span data-i18n="menuShedStatus" class="font-medium">පිරවුම්හල් වල ඉන්ධන තත්ත්වය</span>
+            </a>
+
+            <!-- QR Code Link -->
+            <a href="https://fuelpass.gov.lk/" target="_blank" class="flex items-center p-3 rounded-xl hover:bg-white/5 text-emerald-400 hover:text-emerald-300 transition-colors group mt-2 border border-emerald-500/10">
+                <i data-lucide="qr-code" class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform"></i>
+                <span data-i18n="getQrBtn" class="font-medium">ඉන්ධන QR එක හදාගන්න</span>
+            </a>
+            
+            <!-- Blog Link -->
+            <a href="https://smartaiworldlk.blogspot.com/" target="_blank" class="flex items-center p-3 rounded-xl hover:bg-white/5 text-gray-400 hover:text-blue-400 transition-colors group">
+                <i data-lucide="external-link" class="w-5 h-5 mr-3 group-hover:-translate-y-1 transition-transform"></i>
+                <span data-i18n="visitBlogBtn" class="font-medium">Smart Ai World Lk බ්ලොග් අඩවිය</span>
+            </a>
+        </div>
+        
+        <!-- Sidebar Footer -->
+        <div class="p-4 border-t border-white/10 bg-black/20 text-center">
+            <p class="text-xs text-gray-500">Smart Ai World Lk © 2024</p>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="w-full max-w-lg glass-panel rounded-3xl overflow-hidden animate-slide-up z-10 my-8 mt-16">
+        
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-primary to-blue-600 p-6 text-center relative overflow-hidden">
+            <div class="absolute -top-10 -right-10 opacity-20">
+                <i data-lucide="fuel" class="w-40 h-40"></i>
+            </div>
+            <div class="relative z-10 pt-2">
+                <div class="inline-flex items-center justify-center p-3 bg-white/20 rounded-2xl mb-4 backdrop-blur-sm">
+                    <i data-lucide="fuel" class="w-8 h-8 text-white"></i>
+                </div>
+                <h1 class="text-2xl sm:text-3xl font-bold mb-2 tracking-wide" data-i18n="appTitle">ඉන්ධන ලබා ගත හැකි දින පරීක්‍ෂා කිරීම</h1>
+                <p class="text-blue-100 text-sm font-medium" data-i18n="appSubtitle">අද ඔබට තෙල් ලබා ගත හැකිදැයි පරීක්ෂා කරන්න</p>
+            </div>
+        </div>
+
+        <!-- Body -->
+        <div class="p-8">
+            
+            <!-- Official Notice (Updated) -->
+            <div class="mb-8 p-4 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-start space-x-3 shadow-inner">
+                <div class="mt-0.5 text-blue-400">
+                    <i data-lucide="info" class="w-5 h-5 animate-pulse"></i>
+                </div>
+                <div>
+                    <h4 class="text-sm font-bold text-blue-300 mb-1" data-i18n="noticeTitle">විශේෂ නිවේදනයයි</h4>
+                    <p class="text-xs text-blue-100/90 leading-relaxed" data-i18n="noticeDesc">වාහන ලියාපදිංචි කිරීමේදී ඇතිවන ගැටළු විසඳා ගැනීමට හෝ වංචනික ක්‍රියාවන් පිළිබඳ දැනුම් දීමට <strong>076-019 1919</strong> අංකයට WhatsApp පණිවිඩයක් යොමු කරන්න. (ඩිජිටල් ආර්ථික අමාත්‍යාංශය)</p>
+                </div>
+            </div>
+
+            <!-- Date Info -->
+            <div class="flex items-center justify-between mb-8 pb-6 border-b border-white/10">
+                <div>
+                    <p class="text-gray-400 text-sm mb-1" data-i18n="todayLabel">අද දිනය</p>
+                    <p id="currentDate" class="text-lg font-semibold text-white"></p>
+                </div>
+                <div class="text-right">
+                    <p class="text-gray-400 text-sm mb-1" data-i18n="dayTypeLabel">අද දින වර්ගය</p>
+                    <div id="dayTypeBadge" class="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-gray-700">
+                        <span class="animate-pulse mr-2 w-2 h-2 rounded-full bg-white"></span>
+                        <span id="dayType" data-i18n="calculating">ගණනය කරමින්...</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Form -->
+            <div class="space-y-5 mb-8">
+                <!-- Vehicle Type Dropdown -->
+                <div>
+                    <label for="vehicleType" class="block text-sm font-medium text-gray-300 mb-2" data-i18n="vehicleTypeLabel">
+                        වාහන වර්ගය
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <i data-lucide="truck" class="w-5 h-5 text-gray-400"></i>
+                        </div>
+                        <select id="vehicleType" class="block w-full pl-12 pr-10 py-4 bg-dark/50 border border-gray-600 rounded-xl text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 text-base">
+                            <option value="motorcycle" data-i18n="optMotorcycle">යතුරුපැදි (Motorcycles)</option>
+                            <option value="threewheeler" data-i18n="optThreeWheeler">ත්‍රිරෝද රථ (Three-Wheelers)</option>
+                            <option value="car" selected data-i18n="optCar">කාර් (Motor Cars)</option>
+                            <option value="van" data-i18n="optVan">වෑන් (Vans)</option>
+                            <option value="bus" data-i18n="optBus">බස් (Buses)</option>
+                            <option value="lorry" data-i18n="optLorry">ලොරි (Motor Lorries)</option>
+                        </select>
+                        <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
+                            <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vehicle Number Input -->
+                <div>
+                    <label for="vehicleNo" class="block text-sm font-medium text-gray-300 mb-2" data-i18n="vehicleNoLabel">
+                        වාහනයේ ලියාපදිංචි අංකය
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <i data-lucide="car" class="w-5 h-5 text-gray-400"></i>
+                        </div>
+                        <input type="text" id="vehicleNo" data-i18n="vehicleNoPlaceholder"
+                            class="block w-full pl-12 pr-4 py-4 bg-dark/50 border border-gray-600 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 text-lg uppercase font-mono"
+                            placeholder="උදා: 1234">
+                    </div>
+                    <p class="text-xs text-gray-400 mt-2 flex items-center">
+                        <i data-lucide="info" class="w-4 h-4 mr-1"></i>
+                        <span data-i18n="infoText">අවසාන ඉලක්කම් 4 පමණක් සැලකිල්ලට ගනී</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Check Button -->
+            <button onclick="checkFuelEligibility()" 
+                class="w-full bg-primary hover:bg-blue-500 text-white font-bold py-4 px-6 rounded-xl shadow-lg shadow-primary/30 transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center group">
+                <span data-i18n="checkBtn">පරීක්ෂා කරන්න</span>
+                <i data-lucide="arrow-right" class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform"></i>
+            </button>
+
+            <!-- Result Section -->
+            <div id="resultCard" class="hidden mt-8 rounded-2xl p-6 text-center transform transition-all duration-500 scale-95 opacity-0">
+                <div id="resultIcon" class="mx-auto w-16 h-16 rounded-full flex items-center justify-center mb-4 shadow-lg"></div>
+                
+                <h3 id="resultTitle" class="text-2xl font-bold mb-2"></h3>
+                <p id="resultMessage" class="text-gray-300 text-sm leading-relaxed mb-4"></p>
+                
+                <!-- Fuel Quota Badge -->
+                <div id="quotaContainer" class="hidden justify-center mb-4">
+                    <div class="inline-flex items-center px-4 py-2 bg-black/30 rounded-xl border border-white/10">
+                        <i data-lucide="droplet" class="w-5 h-5 text-primary mr-2"></i>
+                        <span class="text-sm text-gray-300 mr-2" data-i18n="quotaLabel">සතිපතා කෝටාව:</span>
+                        <span id="quotaAmount" class="font-bold text-white text-lg"></span>
+                    </div>
+                </div>
+
+                <div id="digitInfo" class="pt-4 border-t border-white/10 text-xs text-gray-400 font-mono"></div>
+
+                <!-- WhatsApp Share Button -->
+                <a id="waShareBtn" href="#" target="_blank" class="hidden mt-6 w-full bg-whatsapp hover:bg-[#128C7E] text-white font-bold py-3 px-6 rounded-xl shadow-lg transition-all duration-300 flex items-center justify-center group">
+                    <i data-lucide="message-circle" class="w-5 h-5 mr-2 group-hover:scale-110 transition-transform"></i>
+                    <span data-i18n="waShareBtnText">WhatsApp හරහා යවන්න</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- PWA Install Button -->
+    <div class="w-full max-w-lg z-10 px-4 mb-4">
+        <button id="installAppBtn" class="hidden w-full bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-white font-bold py-3 px-6 rounded-xl shadow-lg transition-all duration-300 flex items-center justify-center group animate-slide-up">
+            <i data-lucide="download" class="w-5 h-5 mr-2 group-hover:-translate-y-1 transition-transform"></i>
+            <span data-i18n="installBtnText">App එක ෆෝන් එකට Install කරන්න</span>
+        </button>
+    </div>
+
+    <!-- Footer -->
+    <div class="mb-8 text-center max-w-sm z-10 flex flex-col items-center">
+        
+        <!-- How to Use Button -->
+        <button onclick="openHelpModal()" class="mb-4 text-white hover:text-primary text-sm font-medium transition-colors inline-flex items-center bg-white/10 hover:bg-white/20 px-5 py-2.5 rounded-full backdrop-blur-sm border border-white/10 shadow-lg hover:shadow-primary/20">
+            <i data-lucide="help-circle" class="w-4 h-4 mr-2"></i>
+            <span data-i18n="howToUseBtn">ක්‍රියාකරන ආකාරය (How to Use)</span>
+        </button>
+
+        <!-- External Links -->
+        <div class="mb-4 border-t border-white/10 pt-4 w-full flex flex-col gap-2">
+            <p class="text-gray-400 text-xs mb-2 uppercase tracking-wider font-semibold" data-i18n="otherLinksHeading">අපේ අනෙකුත් වෙබ් ලිපින</p>
+            
+            <a href="https://fuelpass.gov.lk/" target="_blank" class="inline-flex items-center justify-center px-5 py-2.5 bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/30 rounded-xl text-sm transition-all duration-300 w-full group shadow-lg">
+                <i data-lucide="qr-code" class="w-4 h-4 mr-2 text-emerald-400 group-hover:scale-110 transition-transform"></i>
+                <span data-i18n="getQrBtn" class="font-medium text-emerald-100 hover:text-white transition-colors">ඉන්ධන QR එක හදාගන්න (Fuel Pass)</span>
+            </a>
+
+            <!-- Check Station Fuel Status Button (New) -->
+            <a href="https://fuelpass.gov.lk/" target="_blank" class="inline-flex items-center justify-center px-5 py-2.5 bg-orange-500/20 hover:bg-orange-500/30 border border-orange-500/30 rounded-xl text-sm transition-all duration-300 w-full group shadow-lg">
+                <i data-lucide="map-pin" class="w-4 h-4 mr-2 text-orange-400 group-hover:scale-110 transition-transform"></i>
+                <span data-i18n="checkShedBtn" class="font-medium text-orange-100 hover:text-white transition-colors">පිරවුම්හල් වල ඉන්ධන තියෙනවද බලන්න</span>
+            </a>
+
+            <a href="https://smartaiworldlk.blogspot.com/" target="_blank" class="inline-flex items-center justify-center px-5 py-2.5 bg-black/30 hover:bg-black/50 border border-white/10 rounded-xl text-sm text-primary hover:text-blue-400 transition-all duration-300 w-full group">
+                <i data-lucide="external-link" class="w-4 h-4 mr-2 group-hover:scale-110 transition-transform"></i>
+                <span data-i18n="visitBlogBtn" class="font-medium">Smart Ai World Lk බ්ලොග් අඩවිය</span>
+            </a>
+        </div>
+
+        <p class="text-gray-500 text-xs mb-3 mt-4" data-i18n="footerText">
+            මෙම පද්ධතිය මගින් රජයේ ඔත්තේ/ඉරට්ටේ තෙල් බෙදා හැරීමේ නීති රීති වලට අනුකූලව දත්ත පෙන්වනු ලබයි.
+        </p>
+        
+        <button onclick="openPrivacyModal()" class="text-primary hover:text-blue-400 text-xs font-medium underline transition-colors mb-3 inline-flex items-center">
+            <i data-lucide="shield-check" class="w-3 h-3 mr-1"></i>
+            <span data-i18n="privacyBtn">ප්‍රතිපත්ති සහ වගකීම් ප්‍රකාශය</span>
+        </button>
+    </div>
+
+    <!-- Privacy Policy Modal -->
+    <div id="privacyModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300">
+        <div class="modal-glass w-full max-w-md rounded-2xl overflow-hidden shadow-2xl transform scale-95 transition-transform duration-300" id="privacyModalContent">
+            
+            <div class="flex justify-between items-center p-5 border-b border-white/10">
+                <h2 class="text-lg font-bold text-white flex items-center">
+                    <i data-lucide="shield" class="w-5 h-5 mr-2 text-primary"></i>
+                    <span data-i18n="privacyModalTitle">පෞද්ගලිකත්ව ප්‍රතිපත්තිය</span>
+                </h2>
+                <button onclick="closePrivacyModal()" class="text-gray-400 hover:text-white transition-colors bg-white/5 rounded-full p-1">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            
+            <div class="p-6 text-sm text-gray-300 space-y-4 max-h-[60vh] overflow-y-auto">
+                <div>
+                    <h3 class="font-semibold text-white mb-1 text-base" data-i18n="privacy1Title">දත්ත සුරක්ෂිතභාවය (Privacy Policy)</h3>
+                    <p class="leading-relaxed" data-i18n="privacy1Desc">ඔබ මෙහි ඇතුළත් කරන වාහන අංක කිසිවක් අපගේ සේවාදායකයන්හි (Servers) ගබඩා නොකරන අතර, තෙල් ලබාගැනීමේ හැකියාව ගණනය කිරීම සම්පූර්ණයෙන්ම ඔබගේ දුරකථනය හෝ පරිගණකය (Local Browser) තුලම පමණක් ආරක්ෂිතව සිදු වේ.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-white mb-1 text-base" data-i18n="privacy2Title">තොරතුරු මූලාශ්‍රය (Data Source)</h3>
+                    <p class="leading-relaxed"><span data-i18n="privacy2Desc">මෙම වෙබ් අඩවියේ පෙන්වන තොරතුරු</span> <a href="https://gic.gov.lk/faq.html" target="_blank" class="text-primary hover:underline">gic.gov.lk</a> <span data-i18n="privacy2Desc2">මත පදනම්ව සකසා ඇත.</span></p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-white mb-1 text-base" data-i18n="privacy3Title">වගකීමෙන් නිදහස් වීමේ ප්‍රකාශය (Disclaimer)</h3>
+                    <p class="leading-relaxed" data-i18n="privacy3Desc">මෙය රජයේ නිල වෙබ් අඩවියක් නොවන අතර, මහජනතාවගේ පහසුව උදෙසා Smart Ai Word Lk විසින් ස්වේච්ඡාවෙන් නිර්මාණය කරන ලද මෙවලමකි. රජයේ නීති වෙනස්වීම් මත මෙහි ප්‍රතිඵල වෙනස් විය හැක.</p>
+                </div>
+            </div>
+            
+            <div class="p-5 border-t border-white/10 text-center bg-black/20">
+                <button onclick="closePrivacyModal()" class="bg-primary hover:bg-blue-500 text-white font-medium py-2 px-6 rounded-lg transition-colors w-full" data-i18n="understandBtn">
+                    තේරුම් ගත්තා (I Understand)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Help (How to Use) Modal -->
+    <div id="helpModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300">
+        <div class="modal-glass w-full max-w-md rounded-2xl overflow-hidden shadow-2xl transform scale-95 transition-transform duration-300" id="helpModalContent">
+            
+            <div class="flex justify-between items-center p-5 border-b border-white/10">
+                <h2 class="text-lg font-bold text-white flex items-center">
+                    <i data-lucide="help-circle" class="w-5 h-5 mr-2 text-primary"></i>
+                    <span data-i18n="helpModalTitle">භාවිතා කරන ආකාරය</span>
+                </h2>
+                <button onclick="closeHelpModal()" class="text-gray-400 hover:text-white transition-colors bg-white/5 rounded-full p-1">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            
+            <div class="p-6 text-sm text-gray-300 space-y-4 max-h-[60vh] overflow-y-auto">
+                <div class="flex items-start">
+                    <div class="bg-primary/20 text-primary w-6 h-6 rounded-full flex items-center justify-center font-bold mr-3 shrink-0">1</div>
+                    <p class="leading-relaxed pt-0.5" data-i18n="helpStep1">ඉහළින් ඔබගේ භාෂාව තෝරන්න.</p>
+                </div>
+                <div class="flex items-start">
+                    <div class="bg-primary/20 text-primary w-6 h-6 rounded-full flex items-center justify-center font-bold mr-3 shrink-0">2</div>
+                    <p class="leading-relaxed pt-0.5" data-i18n="helpStep2">ඔබගේ වාහන වර්ගය තෝරන්න.</p>
+                </div>
+                <div class="flex items-start">
+                    <div class="bg-primary/20 text-primary w-6 h-6 rounded-full flex items-center justify-center font-bold mr-3 shrink-0">3</div>
+                    <p class="leading-relaxed pt-0.5" data-i18n="helpStep3">වාහනයේ ලියාපදිංචි අංකය ඇතුළත් කරන්න (උදා: 1234).</p>
+                </div>
+                <div class="flex items-start">
+                    <div class="bg-primary/20 text-primary w-6 h-6 rounded-full flex items-center justify-center font-bold mr-3 shrink-0">4</div>
+                    <p class="leading-relaxed pt-0.5" data-i18n="helpStep4">'පරීක්ෂා කරන්න' බොත්තම ඔබන්න.</p>
+                </div>
+                <div class="flex items-start">
+                    <div class="bg-primary/20 text-primary w-6 h-6 rounded-full flex items-center justify-center font-bold mr-3 shrink-0">5</div>
+                    <p class="leading-relaxed pt-0.5" data-i18n="helpStep5">ඔබට අද ඉන්ධන ලබාගත හැකිද යන්න සහ සතිපතා කෝටාව තිරයේ දිස්වනු ඇත.</p>
+                </div>
+                <div class="flex items-start">
+                    <div class="bg-primary/20 text-primary w-6 h-6 rounded-full flex items-center justify-center font-bold mr-3 shrink-0">6</div>
+                    <p class="leading-relaxed pt-0.5" data-i18n="helpStep6">අපගේ නවතම යාවත්කාලීන කිරීම් සහ දැනුම්දීම් (Notifications) ලබා ගැනීමට, තිරයේ ඉහළින් දිස්වන පණිවිඩයෙන් 'Allow' ඔබන්න.</p>
+                </div>
             </div>
             
             <div class="p-5 border-t border-white/10 text-center bg-black/20">
