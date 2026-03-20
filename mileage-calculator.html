@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f172a">
+    <link rel="apple-touch-icon" href="icon.svg">
+    
     <title>Fuel Calculator</title>
     
     <!-- Tailwind CSS -->
@@ -14,6 +19,23 @@
     
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- OneSignal Push Notifications -->
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+    <script>
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      OneSignalDeferred.push(async function(OneSignal) {
+        if (window.location.hostname === "fuel-filling-date-checker.github.io") {
+            try {
+                await OneSignal.init({
+                  appId: "67a723ef-06ab-468d-92c9-a03495507c9a",
+                });
+            } catch (error) {
+                console.error("OneSignal Initialization Error:", error);
+            }
+        }
+      });
+    </script>
 
     <script>
         tailwind.config = {
@@ -58,7 +80,7 @@
 
     <!-- Top Navigation -->
     <div class="absolute top-4 left-4 z-40">
-        <button onclick="openSidebar()" class="p-2.5 bg-black/40 backdrop-blur-md text-white rounded-xl border border-white/20 hover:bg-white/20 transition-all duration-300 shadow-lg">
+        <button onclick="openSidebar()" class="p-2.5 bg-black/40 backdrop-blur-md text-white rounded-xl border border-white/20 hover:bg-white/20 transition-all duration-300 shadow-lg relative group">
             <i data-lucide="menu" class="w-5 h-5"></i>
         </button>
     </div>
@@ -92,29 +114,37 @@
         </div>
         
         <div class="p-4 flex-1 overflow-y-auto space-y-2">
+            <!-- Link to Main App -->
             <a href="index.html" class="flex items-center p-3 rounded-xl hover:bg-white/5 text-gray-400 hover:text-blue-400 transition-colors group">
                 <i data-lucide="droplet" class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform"></i>
                 <span data-i18n="menuFuelCheck" class="font-medium">ඉන්ධන පරීක්ෂාව</span>
             </a>
             
+            <!-- Active Link (Mileage Calc) -->
             <a href="#" class="flex items-center p-3 rounded-xl bg-primary/20 text-primary border border-primary/30 group mt-2">
                 <i data-lucide="gauge" class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform"></i>
                 <span data-i18n="menuMileage" class="font-medium">ඉන්ධන ගණක යන්ත්‍ර</span>
+                <!-- New Badge -->
+                <span class="ml-auto bg-emerald-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full animate-pulse">NEW</span>
             </a>
 
+            <!-- QR Code Link -->
             <a href="https://fuelpass.gov.lk/" target="_blank" class="flex items-center p-3 rounded-xl hover:bg-white/5 text-emerald-400 hover:text-emerald-300 transition-colors group mt-2 border border-emerald-500/10">
                 <i data-lucide="qr-code" class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform"></i>
                 <span data-i18n="getQrBtn" class="font-medium">ඉන්ධන QR එක හදාගන්න</span>
             </a>
             
-            <a href="https://smartaiworldlk.blogspot.com/" target="_blank" class="flex items-center p-3 rounded-xl hover:bg-white/5 text-gray-400 hover:text-blue-400 transition-colors group mt-4">
+            <!-- Blog Link -->
+            <a href="https://smartaiworldlk.blogspot.com/" target="_blank" class="flex items-center p-3 rounded-xl hover:bg-white/5 text-gray-400 hover:text-blue-400 transition-colors group mt-4 border border-white/5">
                 <i data-lucide="external-link" class="w-5 h-5 mr-3 group-hover:-translate-y-1 transition-transform"></i>
                 <span data-i18n="visitBlogBtn" class="font-medium">Smart Ai World Lk බ්ලොග් අඩවිය</span>
             </a>
         </div>
         
-        <div class="p-4 border-t border-white/10 bg-black/20 text-center">
-            <p class="text-xs text-gray-500">Smart Ai World Lk © 2024</p>
+        <!-- Sidebar Footer with Version -->
+        <div class="p-4 border-t border-white/10 bg-black/20 flex justify-between items-center text-xs text-gray-500">
+            <span>Smart Ai World Lk © 2024</span>
+            <span class="bg-white/10 px-2 py-1 rounded-md text-gray-400 font-mono tracking-wider shadow-inner">v1.1.0</span>
         </div>
     </div>
 
@@ -210,7 +240,6 @@
                 </div>
 
                 <div>
-                    <!-- Updated Label Here -->
                     <label class="block text-sm font-medium text-emerald-400 mb-2" data-i18n="fuelConsumedLabel">ඒ සඳහා වැය වූ ඉන්ධන (ලීටර්)</label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"><i data-lucide="flame" class="w-5 h-5 text-gray-400"></i></div>
@@ -352,7 +381,7 @@
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (el.tagName === 'INPUT' && el.hasAttribute('placeholder')) {
-                    // Keeping placeholders numeric for better UX, but translation function is here if needed
+                    // Keeping placeholders numeric for better UX
                 } else {
                     el.innerHTML = t(key);
                 }
@@ -466,6 +495,15 @@
             setTimeout(() => {
                 overlay.classList.add('hidden');
             }, 300);
+        }
+
+        // ---------------- PWA INSTALLATION SYSTEM ----------------
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                .then(() => console.log('PWA Service Worker Registered'))
+                .catch((err) => console.log('PWA Service Worker Failed', err));
+            });
         }
     </script>
 </body>
