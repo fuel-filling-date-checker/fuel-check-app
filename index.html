@@ -130,13 +130,13 @@
         <!-- Sidebar Links -->
         <div class="p-4 flex-1 overflow-y-auto space-y-2">
             <!-- Active Link -->
-            <a href="#" class="flex items-center p-3 rounded-xl bg-primary/20 text-primary border border-primary/30 group">
+            <a href="index.html" class="flex items-center p-3 rounded-xl bg-primary/20 text-primary border border-primary/30 group">
                 <i data-lucide="droplet" class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform"></i>
                 <span data-i18n="menuFuelCheck" class="font-medium">ඉන්ධන පරීක්ෂාව</span>
             </a>
             
-            <!-- Future Tool Placeholder (Reverted) -->
-            <a href="mileage-calculator.html" class="flex items-center p-3 rounded-xl hover:bg-white/5 text-gray-400 hover:text-emerald-400 transition-colors group mt-2">
+            <!-- Mileage Calculator Link (New) -->
+            <a href="mileage-calculator.html" class="flex items-center p-3 rounded-xl hover:bg-white/5 text-gray-400 hover:text-emerald-400 transition-colors group mt-2 border border-transparent hover:border-emerald-500/10">
                 <i data-lucide="gauge" class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform"></i>
                 <span data-i18n="menuMileage" class="font-medium">ඉන්ධන කාර්යක්ෂමතා ගණකය</span>
             </a>
@@ -148,7 +148,7 @@
             </a>
             
             <!-- Blog Link -->
-            <a href="https://smartaiworldlk.blogspot.com/" target="_blank" class="flex items-center p-3 rounded-xl hover:bg-white/5 text-gray-400 hover:text-blue-400 transition-colors group">
+            <a href="https://smartaiworldlk.blogspot.com/" target="_blank" class="flex items-center p-3 rounded-xl hover:bg-white/5 text-gray-400 hover:text-blue-400 transition-colors group mt-4 border border-white/5">
                 <i data-lucide="external-link" class="w-5 h-5 mr-3 group-hover:-translate-y-1 transition-transform"></i>
                 <span data-i18n="visitBlogBtn" class="font-medium">Smart Ai World Lk බ්ලොග් අඩවිය</span>
             </a>
@@ -180,7 +180,7 @@
         <!-- Body -->
         <div class="p-8">
             
-            <!-- Official Notice (Updated) -->
+            <!-- Official Notice -->
             <div class="mb-8 p-4 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-start space-x-3 shadow-inner">
                 <div class="mt-0.5 text-blue-400">
                     <i data-lucide="info" class="w-5 h-5 animate-pulse"></i>
@@ -457,12 +457,15 @@
                 helpStep4: "'පරීක්ෂා කරන්න' බොත්තම ඔබන්න.",
                 helpStep5: "ඔබට අද ඉන්ධන ලබාගත හැකිද යන්න සහ සතිපතා කෝටාව තිරයේ දිස්වනු ඇත.",
                 helpStep6: "අපගේ නවතම යාවත්කාලීන කිරීම් සහ දැනුම්දීම් (Notifications) ලබා ගැනීමට, තිරයේ ඉහළින් දිස්වන පණිවිඩයෙන් 'Allow' ඔබන්න.",
+                helpStep7: "පිරවුම්හල් වල ඉන්ධන ඇතිදැයි පරීක්ෂා කිරීමට පහළින් ඇති 'පිරවුම්හල් වල ඉන්ධන තියෙනවද බලන්න' බොත්තම හෝ මෙනුව භාවිතා කරන්න.",
                 otherLinksHeading: "අපේ අනෙකුත් වෙබ් ලිපින",
                 visitBlogBtn: "Smart Ai World Lk බ්ලොග් අඩවිය",
                 getQrBtn: "ඉන්ධන QR එක හදාගන්න (Fuel Pass)",
+                checkShedBtn: "පිරවුම්හල් වල ඉන්ධන තියෙනවද බලන්න",
                 menuTitle: "මෙනුව (Menu)",
                 menuFuelCheck: "ඉන්ධන පරීක්ෂාව",
-                menuMileage: "ඉන්ධන කාර්යක්ෂමතා ගණකය",` (සිංහල), `menuMileage: "Mileage Calculator",` (English), `menuMileage: "மைலேஜ் கால்குலேட்டர்",` (Tamil)",
+                menuMileage: "ඉන්ධන කාර්යක්ෂමතා ගණකය",
+                menuShedStatus: "පිරවුම්හල් වල ඉන්ධන තත්ත්වය",
                 noticeTitle: "විශේෂ නිවේදනයයි",
                 noticeDesc: "වාහන ලියාපදිංචි කිරීමේදී ඇතිවන ගැටළු විසඳා ගැනීමට හෝ වංචනික ක්‍රියාවන් පිළිබඳ දැනුම් දීමට <strong>076-019 1919</strong> අංකයට WhatsApp පණිවිඩයක් යොමු කරන්න. (ඩිජිටල් ආර්ථික අමාත්‍යාංශය)",
                 odd: "ඔත්තේ", even: "ඉරට්ටේ",
@@ -518,12 +521,15 @@
                 helpStep4: "Click on the 'Check Eligibility' button.",
                 helpStep5: "View your daily eligibility and weekly fuel quota.",
                 helpStep6: "To receive our latest updates and notifications, click 'Allow' on the prompt at the top of the screen.",
+                helpStep7: "To check fuel availability at nearby stations, use the 'Check Fuel Availability at Stations' button below or from the menu.",
                 otherLinksHeading: "Our Other Web Links",
                 visitBlogBtn: "Smart Ai World Lk Blog",
                 getQrBtn: "Get Fuel Pass QR Code",
+                checkShedBtn: "Check Fuel Availability at Stations",
                 menuTitle: "Menu",
                 menuFuelCheck: "Fuel Check",
-                menuNewTool: "New Tool (Coming Soon)",
+                menuMileage: "Mileage Calculator",
+                menuShedStatus: "Station Fuel Status",
                 noticeTitle: "Special Notice",
                 noticeDesc: "To resolve vehicle registration issues or report fraudulent activities, send a WhatsApp message to <strong>076-019 1919</strong>. (Ministry of Digital Economy)",
                 odd: "Odd", even: "Even",
@@ -564,7 +570,7 @@
                 privacyBtn: "தனியுரிமை மற்றும் பொறுப்புத் துறப்பு",
                 privacyModalTitle: "தனியுரிமைக் கொள்கை",
                 privacy1Title: "தரவு பாதுகாப்பு (Privacy Policy)",
-                privacy1Desc: "நீங்கள் இங்கு உள்ளிடும் வாகன எண்கள் எதுவும் எங்கள் சேவையகங்களில் சேமிக்கப்படாது. கணக்கீடு முழுமையாக உங்கள் தொலைபேசி அல்லது கணினியில் (Local Browser) மட்டுமே பாதுகாப்பாக செய்யப்படுகிறது.",
+                privacy1Desc: "நீங்கள் இங்கு உள்ளிடும் வாகன எண்கள் எதுவும் எங்கள் சேவையகங்களில் சேமிக்கப்படாது. கணக்கீடு முழுமையாக உங்கள் தொலைபேசி உங்கள் தொலைபேசி அல்லது கணினியில் (Local Browser) மட்டுமே பாதுகாப்பாக செய்யப்படுகிறது.",
                 privacy2Title: "தரவு மூல (Data Source)",
                 privacy2Desc: "இந்த இணையதளத்தில் காண்பிக்கப்படும் தகவல்கள்",
                 privacy2Desc2: "மற்றும் பெட்ரோலியக் கூட்டுத்தாபனத்தின் அதிகாரப்பூர்வ அறிவிப்புகளின் அடிப்படையில் அமைந்தது.",
@@ -579,12 +585,15 @@
                 helpStep4: "'சரிபார்க்கவும்' பொத்தானை அழுத்தவும்.",
                 helpStep5: "இன்றைய எரிபொருள் தகுதி மற்றும் வாராந்திர ஒதுக்கீட்டைப் பார்க்கவும்.",
                 helpStep6: "எங்கள் புதிய அறிவிப்புகளைப் பெற, திரையின் மேற்புறத்தில் தோன்றும் செய்தியில் 'Allow' என்பதை அழுத்தவும்.",
+                helpStep7: "அருகிலுள்ள நிலையங்களில் எரிபொருள் உள்ளதா என சரிபார்க்க, கீழே உள்ள 'நிலையங்களில் எரிபொருள் உள்ளதா என சரிபார்க்கவும்' பொத்தானை அல்லது மெனுவைப் பயன்படுத்தவும்.",
                 otherLinksHeading: "எங்கள் பிற இணைய இணைப்புகள்",
                 visitBlogBtn: "Smart Ai World Lk வலைப்பதிவு",
                 getQrBtn: "எரிபொருள் QR குறியீட்டைப் பெறுக",
+                checkShedBtn: "நிலையங்களில் எரிபொருள் உள்ளதா என சரிபார்க்கவும்",
                 menuTitle: "பட்டியல்",
                 menuFuelCheck: "எரிபொருள் சரிபார்ப்பு",
-                menuNewTool: "புதிய கருவி (விரைவில்)",
+                menuMileage: "மைலேஜ் கால்குலேட்டர்",
+                menuShedStatus: "எரிபொருள் நிலைய நிலை",
                 noticeTitle: "விசேட அறிவிப்பு",
                 noticeDesc: "வாகனப் பதிவு சிக்கல்களைத் தீர்க்க அல்லது மோசடியான செயல்பாடுகளைப் புகாரளிக்க <strong>076-019 1919</strong> என்ற எண்ணுக்கு WhatsApp செய்தி அனுப்பவும். (டிஜிட்டல் பொருளாதார அமைச்சு)",
                 odd: "ஒற்றை", even: "இரட்டை",
@@ -617,7 +626,6 @@
                 if (el.tagName === 'INPUT' && el.hasAttribute('placeholder')) {
                     el.placeholder = t(key);
                 } else {
-                    // Changed innerText to innerHTML to allow <strong> tags in translations
                     el.innerHTML = t(key);
                 }
             });
@@ -650,7 +658,7 @@
         }
 
         window.onload = function() {
-            // භාෂාව පමණක් මතක තබා ගනී. පරණ වාහන අංක මැකී යයි.
+            // භාෂාව පමණක් මතක තබා ගනී.
             const savedLang = localStorage.getItem('national_fuel_lang');
             if (savedLang && translations[savedLang]) {
                 changeLanguage(savedLang);
