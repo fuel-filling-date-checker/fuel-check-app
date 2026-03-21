@@ -194,6 +194,10 @@
                             <span class="text-sm text-gray-400 flex items-center"><i data-lucide="car" class="w-4 h-4 mr-2"></i> <span data-i18n="resType">වාහන වර්ගය</span></span>
                             <span id="resTypeVal" class="text-sm font-semibold text-white text-right"></span>
                         </div>
+                        <div class="flex justify-between items-center pt-2 border-t border-white/5">
+                            <span class="text-sm text-purple-300 flex items-center"><i data-lucide="hash" class="w-4 h-4 mr-2"></i> <span data-i18n="resSerial">අනුක්‍රමික අංකය (Serial)</span></span>
+                            <span id="resSerialVal" class="text-sm font-mono font-bold text-purple-200 text-right tracking-widest"></span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -240,6 +244,7 @@
                 resCountry: "නිෂ්පාදිත රට",
                 resManufacturer: "සමාගම",
                 resType: "වාහන වර්ගය",
+                resSerial: "අනුක්‍රමික අංකය (Serial)",
                 backToHome: "ප්‍රධාන පිටුවට යන්න",
                 errLength: "කරුණාකර අක්ෂර 17 කින් යුත් නිවැරදි VIN අංකයක් ලබාදෙන්න.",
                 errApi: "සමාවෙන්න, දත්ත ලබා ගැනීමේ දෝෂයකි. නැවත උත්සහ කරන්න.",
@@ -259,6 +264,7 @@
                 resCountry: "Plant Country",
                 resManufacturer: "Manufacturer",
                 resType: "Vehicle Type",
+                resSerial: "Production Serial No",
                 backToHome: "Back to Home",
                 errLength: "Please enter a valid 17-character VIN.",
                 errApi: "Sorry, network error occurred. Please try again.",
@@ -278,6 +284,7 @@
                 resCountry: "உற்பத்தி நாடு",
                 resManufacturer: "உற்பத்தியாளர்",
                 resType: "வாகன வகை",
+                resSerial: "உற்பத்தி தொடர் எண்",
                 backToHome: "முகப்புப் பக்கத்திற்குச் செல்லவும்",
                 errLength: "சரியான 17 இலக்க VIN எண்ணை வழங்கவும்.",
                 errApi: "மன்னிக்கவும், தரவு பெறுவதில் பிழை. மீண்டும் முயற்சிக்கவும்.",
@@ -433,6 +440,9 @@
                 document.getElementById('resCountryVal').innerText = country || 'N/A';
                 document.getElementById('resManufacturerVal').innerText = manufacturer || 'N/A';
                 document.getElementById('resTypeVal').innerText = type || 'N/A';
+                
+                // Extract Serial Number (Last 6 characters of VIN)
+                document.getElementById('resSerialVal').innerText = vin.substring(11);
 
                 resultCard.classList.remove('hidden');
                 setTimeout(() => {
