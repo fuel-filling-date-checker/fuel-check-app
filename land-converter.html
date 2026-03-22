@@ -103,30 +103,43 @@
         </div>
         
         <div class="p-4 flex-1 overflow-y-auto space-y-2">
-            <!-- Link to Main App -->
-            <a href="index.html" class="flex items-center p-3 rounded-xl hover:bg-white/5 text-gray-400 hover:text-blue-400 transition-colors group">
+            <!-- Sidebar Links -->
+        <div class="p-4 flex-1 overflow-y-auto space-y-2">
+            <!-- Active Link -->
+            <a href="index.html" class="flex items-center p-3 rounded-xl bg-primary/20 text-primary border border-primary/30 group">
                 <i data-lucide="droplet" class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform"></i>
                 <span data-i18n="menuFuelCheck" class="font-medium">ඉන්ධන පරීක්ෂාව</span>
             </a>
-            
-            <!-- Mileage Calc -->
-            <a href="mileage-calculator.html" class="flex items-center p-3 rounded-xl hover:bg-white/5 text-gray-400 hover:text-emerald-400 transition-colors group mt-2">
-                <i data-lucide="gauge" class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform"></i>
-                <span data-i18n="menuMileage" class="font-medium">ඉන්ධන ගණක යන්ත්‍ර</span>
-            </a>
-
-            <!-- VIN Decoder Link -->
+            <!-- VIN Decoder Link (New) -->
             <a href="vin-decoder.html" class="flex items-center p-3 rounded-xl hover:bg-white/5 text-gray-400 hover:text-purple-400 transition-colors group mt-2 border border-transparent hover:border-purple-500/10">
                 <i data-lucide="search" class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform"></i>
-                <span data-i18n="menuVin" class="font-medium">චැසි අංක පරීක්ෂාව</span>
-                <span class="ml-auto bg-purple-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">PRO</span>
+                <span class="font-medium">චැසි අංක පරීක්ෂාව</span>
+                <span class="ml-auto bg-purple-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full animate-pulse">PRO</span>
+            </a>
+            <!-- Land Converter Link -->
+            <a href="land-converter.html" class="flex items-center p-3 rounded-xl hover:bg-white/5 text-gray-400 hover:text-emerald-400 transition-colors group mt-2 border border-transparent hover:border-emerald-500/10">
+                <i data-lucide="map" class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform"></i>
+                <span class="font-medium">ඉඩම් මිනුම් පරිවර්තකය</span>
+                <span class="ml-auto bg-emerald-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full animate-pulse">NEW</span>
+            </a>
+            <!-- Mileage Calculator Link -->
+            <a href="mileage-calculator.html" class="flex items-center p-3 rounded-xl hover:bg-white/5 text-gray-400 hover:text-emerald-400 transition-colors group mt-2 border border-transparent hover:border-emerald-500/10">
+                <i data-lucide="gauge" class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform"></i>
+                <span data-i18n="menuMileage" class="font-medium">ඉන්ධන කාර්යක්ෂමතා ගණකය</span>
+                <!-- New Badge -->
+                <span class="ml-auto bg-emerald-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full animate-pulse">NEW</span>
             </a>
 
-            <!-- Active Link (Land Converter) -->
-            <a href="#" class="flex items-center p-3 rounded-xl bg-primary/20 text-primary border border-primary/30 group mt-2">
-                <i data-lucide="map" class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform"></i>
-                <span data-i18n="menuLand" class="font-medium">ඉඩම් මිනුම් පරිවර්තකය</span>
-                <span class="ml-auto bg-emerald-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full animate-pulse">NEW</span>
+            <!-- QR Code Link -->
+            <a href="https://fuelpass.gov.lk/" target="_blank" class="flex items-center p-3 rounded-xl hover:bg-white/5 text-emerald-400 hover:text-emerald-300 transition-colors group mt-2 border border-emerald-500/10">
+                <i data-lucide="qr-code" class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform"></i>
+                <span data-i18n="getQrBtn" class="font-medium">ඉන්ධන QR එක හදාගන්න</span>
+            </a>
+            
+            <!-- Blog Link -->
+            <a href="https://smartaiworldlk.blogspot.com/" target="_blank" class="flex items-center p-3 rounded-xl hover:bg-white/5 text-gray-400 hover:text-blue-400 transition-colors group mt-4 border border-white/5">
+                <i data-lucide="external-link" class="w-5 h-5 mr-3 group-hover:-translate-y-1 transition-transform"></i>
+                <span data-i18n="visitBlogBtn" class="font-medium">Smart Ai World Lk බ්ලොග් අඩවිය</span>
             </a>
         </div>
         
