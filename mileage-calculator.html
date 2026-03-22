@@ -74,6 +74,12 @@
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        /* Hide arrows in number inputs */
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
     </style>
 </head>
 <body class="text-white antialiased flex flex-col justify-center items-center p-4 min-h-screen relative overflow-x-hidden">
@@ -112,33 +118,41 @@
                 <i data-lucide="x" class="w-5 h-5"></i>
             </button>
         </div>
-        <!-- Land Converter Link -->
-            <a href="land-converter.html" class="flex items-center p-3 rounded-xl hover:bg-white/5 text-gray-400 hover:text-emerald-400 transition-colors group mt-2 border border-transparent hover:border-emerald-500/10">
-                <i data-lucide="map" class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform"></i>
-                <span class="font-medium">ඉඩම් මිනුම් පරිවර්තකය</span>
-                <span class="ml-auto bg-emerald-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full animate-pulse">NEW</span>
-            </a>
+        
         <div class="p-4 flex-1 overflow-y-auto space-y-2">
-            <!-- Link to Main App -->
+            <!-- 1. Fuel Check -->
             <a href="index.html" class="flex items-center p-3 rounded-xl hover:bg-white/5 text-gray-400 hover:text-blue-400 transition-colors group">
                 <i data-lucide="droplet" class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform"></i>
                 <span data-i18n="menuFuelCheck" class="font-medium">ඉන්ධන පරීක්ෂාව</span>
             </a>
+
+            <!-- 2. VIN Decoder Link -->
+            <a href="vin-decoder.html" class="flex items-center p-3 rounded-xl hover:bg-white/5 text-gray-400 hover:text-purple-400 transition-colors group mt-2 border border-transparent hover:border-purple-500/10">
+                <i data-lucide="search" class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform"></i>
+                <span data-i18n="menuVin" class="font-medium">චැසි අංක පරීක්ෂාව</span>
+                <span class="ml-auto bg-purple-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">PRO</span>
+            </a>
+
+            <!-- 3. Land Converter Link -->
+            <a href="land-converter.html" class="flex items-center p-3 rounded-xl hover:bg-white/5 text-gray-400 hover:text-emerald-400 transition-colors group mt-2 border border-transparent hover:border-emerald-500/10">
+                <i data-lucide="map" class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform"></i>
+                <span data-i18n="menuLand" class="font-medium">ඉඩම් මිනුම් පරිවර්තකය</span>
+                <span class="ml-auto bg-emerald-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full animate-pulse">NEW</span>
+            </a>
             
-            <!-- Active Link (Mileage Calc) -->
+            <!-- 4. Active Link (Mileage Calc) -->
             <a href="#" class="flex items-center p-3 rounded-xl bg-primary/20 text-primary border border-primary/30 group mt-2">
                 <i data-lucide="gauge" class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform"></i>
                 <span data-i18n="menuMileage" class="font-medium">ඉන්ධන ගණක යන්ත්‍ර</span>
-                <!-- New Badge -->
-                <span class="ml-auto bg-emerald-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full animate-pulse">NEW</span>
-           
-            <!-- QR Code Link -->
+            </a>
+
+            <!-- 5. QR Code Link -->
             <a href="https://fuelpass.gov.lk/" target="_blank" class="flex items-center p-3 rounded-xl hover:bg-white/5 text-emerald-400 hover:text-emerald-300 transition-colors group mt-2 border border-emerald-500/10">
                 <i data-lucide="qr-code" class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform"></i>
                 <span data-i18n="getQrBtn" class="font-medium">ඉන්ධන QR එක හදාගන්න</span>
             </a>
-            
-            <!-- Blog Link -->
+
+            <!-- 6. Blog Link -->
             <a href="https://smartaiworldlk.blogspot.com/" target="_blank" class="flex items-center p-3 rounded-xl hover:bg-white/5 text-gray-400 hover:text-blue-400 transition-colors group mt-4 border border-white/5">
                 <i data-lucide="external-link" class="w-5 h-5 mr-3 group-hover:-translate-y-1 transition-transform"></i>
                 <span data-i18n="visitBlogBtn" class="font-medium">Smart Ai World Lk බ්ලොග් අඩවිය</span>
@@ -303,6 +317,8 @@
                 menuTitle: "මෙනුව (Menu)",
                 menuFuelCheck: "ඉන්ධන පරීක්ෂාව",
                 menuMileage: "ඉන්ධන ගණක යන්ත්‍ර",
+                menuVin: "චැසි අංක පරීක්ෂාව",
+                menuLand: "ඉඩම් මිනුම් පරිවර්තකය",
                 getQrBtn: "ඉන්ධන QR එක හදාගන්න",
                 visitBlogBtn: "Smart Ai World Lk බ්ලොග් අඩවිය",
                 toolTitle: "ඉන්ධන ගණක යන්ත්‍ර",
@@ -327,6 +343,8 @@
                 menuTitle: "Menu",
                 menuFuelCheck: "Fuel Check",
                 menuMileage: "Fuel Calculators",
+                menuVin: "VIN Decoder",
+                menuLand: "Land Area Converter",
                 getQrBtn: "Get Fuel Pass QR Code",
                 visitBlogBtn: "Smart Ai World Lk Blog",
                 toolTitle: "Fuel Calculators",
@@ -351,6 +369,8 @@
                 menuTitle: "பட்டியல்",
                 menuFuelCheck: "எரிபொருள் சரிபார்ப்பு",
                 menuMileage: "எரிபொருள் கால்குலேட்டர்கள்",
+                menuVin: "VIN குறிவிலக்கி",
+                menuLand: "நிலப்பரப்பு மாற்றி",
                 getQrBtn: "எரிபொருள் QR குறியீட்டைப் பெறுக",
                 visitBlogBtn: "Smart Ai World Lk வலைப்பதிவு",
                 toolTitle: "எரிபொருள் கால்குலேட்டர்கள்",
