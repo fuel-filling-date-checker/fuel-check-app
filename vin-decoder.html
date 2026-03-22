@@ -89,32 +89,44 @@
                 <i data-lucide="x" class="w-5 h-5"></i>
             </button>
         </div>
-        <!-- Land Converter Link -->
-            <a href="land-converter.html" class="flex items-center p-3 rounded-xl hover:bg-white/5 text-gray-400 hover:text-emerald-400 transition-colors group mt-2 border border-transparent hover:border-emerald-500/10">
-                <i data-lucide="map" class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform"></i>
-                <span class="font-medium">ඉඩම් මිනුම් පරිවර්තකය</span>
-                <span class="ml-auto bg-emerald-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full animate-pulse">NEW</span>
-            </a>
+        
         <div class="p-4 flex-1 overflow-y-auto space-y-2">
+            <!-- 1. Fuel Check -->
             <a href="index.html" class="flex items-center p-3 rounded-xl hover:bg-white/5 text-gray-400 hover:text-blue-400 transition-colors group">
                 <i data-lucide="droplet" class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform"></i>
                 <span data-i18n="menuFuelCheck" class="font-medium">ඉන්ධන පරීක්ෂාව</span>
             </a>
-            
-            <a href="mileage-calculator.html" class="flex items-center p-3 rounded-xl hover:bg-white/5 text-gray-400 hover:text-emerald-400 transition-colors group mt-2">
-                <i data-lucide="gauge" class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform"></i>
-                <span data-i18n="menuMileage" class="font-medium">ඉන්ධන ගණක යන්ත්‍ර</span>
-            </a>
 
+            <!-- 2. Active Link (VIN Decoder) -->
             <a href="#" class="flex items-center p-3 rounded-xl bg-primary/20 text-primary border border-primary/30 group mt-2">
                 <i data-lucide="search" class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform"></i>
                 <span data-i18n="menuVin" class="font-medium">චැසි අංක පරීක්ෂාව</span>
                 <span class="ml-auto bg-primary text-white text-[10px] font-bold px-2 py-0.5 rounded-full animate-pulse">PRO</span>
             </a>
 
+            <!-- 3. Land Converter Link -->
+            <a href="land-converter.html" class="flex items-center p-3 rounded-xl hover:bg-white/5 text-gray-400 hover:text-emerald-400 transition-colors group mt-2 border border-transparent hover:border-emerald-500/10">
+                <i data-lucide="map" class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform"></i>
+                <span data-i18n="menuLand" class="font-medium">ඉඩම් මිනුම් පරිවර්තකය</span>
+                <span class="ml-auto bg-emerald-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full animate-pulse">NEW</span>
+            </a>
+            
+            <!-- 4. Mileage Calc -->
+            <a href="mileage-calculator.html" class="flex items-center p-3 rounded-xl hover:bg-white/5 text-gray-400 hover:text-emerald-400 transition-colors group mt-2 border border-transparent hover:border-emerald-500/10">
+                <i data-lucide="gauge" class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform"></i>
+                <span data-i18n="menuMileage" class="font-medium">ඉන්ධන කාර්යක්ෂමතා ගණකය</span>
+            </a>
+
+            <!-- 5. QR Code Link -->
             <a href="https://fuelpass.gov.lk/" target="_blank" class="flex items-center p-3 rounded-xl hover:bg-white/5 text-emerald-400 hover:text-emerald-300 transition-colors group mt-2 border border-emerald-500/10">
                 <i data-lucide="qr-code" class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform"></i>
                 <span data-i18n="getQrBtn" class="font-medium">ඉන්ධන QR එක හදාගන්න</span>
+            </a>
+
+            <!-- 6. Blog Link -->
+            <a href="https://smartaiworldlk.blogspot.com/" target="_blank" class="flex items-center p-3 rounded-xl hover:bg-white/5 text-gray-400 hover:text-blue-400 transition-colors group mt-4 border border-white/5">
+                <i data-lucide="external-link" class="w-5 h-5 mr-3 group-hover:-translate-y-1 transition-transform"></i>
+                <span data-i18n="visitBlogBtn" class="font-medium">Smart Ai World Lk බ්ලොග් අඩවිය</span>
             </a>
         </div>
         
@@ -199,6 +211,7 @@
                             <span class="text-sm text-gray-400 flex items-center"><i data-lucide="car" class="w-4 h-4 mr-2"></i> <span data-i18n="resType">වාහන වර්ගය</span></span>
                             <span id="resTypeVal" class="text-sm font-semibold text-white text-right"></span>
                         </div>
+                        <!-- Serial Number Row -->
                         <div class="flex justify-between items-center pt-2 border-t border-white/5">
                             <span class="text-sm text-purple-300 flex items-center"><i data-lucide="hash" class="w-4 h-4 mr-2"></i> <span data-i18n="resSerial">අනුක්‍රමික අංකය (Serial)</span></span>
                             <span id="resSerialVal" class="text-sm font-mono font-bold text-purple-200 text-right tracking-widest"></span>
@@ -238,9 +251,11 @@
             si: {
                 menuTitle: "මෙනුව (Menu)",
                 menuFuelCheck: "ඉන්ධන පරීක්ෂාව",
-                menuMileage: "ඉන්ධන ගණක යන්ත්‍ර",
+                menuMileage: "ඉන්ධන කාර්යක්ෂමතා ගණකය",
                 menuVin: "චැසි අංක පරීක්ෂාව",
+                menuLand: "ඉඩම් මිනුම් පරිවර්තකය",
                 getQrBtn: "ඉන්ධන QR එක හදාගන්න",
+                visitBlogBtn: "Smart Ai World Lk බ්ලොග් අඩවිය",
                 toolTitle: "චැසි අංක පරිවර්තකය",
                 toolSubtitle: "වාහනයේ සම්පූර්ණ තොරතුරු සොයාගන්න",
                 tipVin: "💡 සටහන: ජපන් දේශීය (JDM) වාහන වල ඇති කෙටි අංක මෙයට ඇතුළත් කළ නොහැක. අක්ෂර 17 කින් යුත් සම්මත ජාත්‍යන්තර VIN අංකයක් පමණක් ලබාදෙන්න.",
@@ -258,9 +273,11 @@
             en: {
                 menuTitle: "Menu",
                 menuFuelCheck: "Fuel Check",
-                menuMileage: "Fuel Calculators",
+                menuMileage: "Mileage Calculator",
                 menuVin: "VIN Decoder",
+                menuLand: "Land Area Converter",
                 getQrBtn: "Get Fuel Pass QR Code",
+                visitBlogBtn: "Smart Ai World Lk Blog",
                 toolTitle: "VIN / Chassis Decoder",
                 toolSubtitle: "Extract detailed vehicle specifications",
                 tipVin: "💡 Note: Short JDM chassis numbers cannot be decoded. Please enter a standard 17-character international VIN.",
@@ -278,9 +295,11 @@
             ta: {
                 menuTitle: "பட்டியல்",
                 menuFuelCheck: "எரிபொருள் சரிபார்ப்பு",
-                menuMileage: "எரிபொருள் கால்குலேட்டர்கள்",
+                menuMileage: "மைலேஜ் கால்குலேட்டர்",
                 menuVin: "VIN குறிவிலக்கி",
+                menuLand: "நிலப்பரப்பு மாற்றி",
                 getQrBtn: "எரிபொருள் QR குறியீட்டைப் பெறுக",
+                visitBlogBtn: "Smart Ai World Lk வலைப்பதிவு",
                 toolTitle: "VIN குறிவிலக்கி",
                 toolSubtitle: "வாகனத்தின் முழுமையான தகவல்களைக் கண்டறியவும்",
                 tipVin: "💡 குறிப்பு: ஜப்பானிய (JDM) குறுகிய எண்களை உள்ளிட முடியாது. நிலையான 17 இலக்க VIN ஐ மட்டும் வழங்கவும்.",
